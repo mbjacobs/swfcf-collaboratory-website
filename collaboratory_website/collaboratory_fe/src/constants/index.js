@@ -1,0 +1,1 @@
+export const ORGANIZATIONS_API_URL = "http://localhost:8000/api/organizations/";
