@@ -6,11 +6,19 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 
 from .serializers import *
-from .models import Organization
+from .models import Organization, Changemakers, Regions
 
 class OrganizationViewSet(viewsets.ModelViewSet):
 	queryset=Organization.objects.all().order_by('name')
 	serializer_class = OrganizationSerializer
+
+class ChangemakersViewSet(viewsets.ModelViewSet):
+    serializer_class = ChangemakersSerializer
+    queryset = Changemakers.objects.all().order_by('cid')
+
+class RegionsViewSet(viewsets.ModelViewSet):
+    serializer_class = RegionsSerializer
+    queryset = Regions.objects.all().order_by('rid')
 
 @api_view(['GET', 'POST'])
 def organizations_list(request):
@@ -26,7 +34,7 @@ def organizations_list(request):
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
-            
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PUT', 'DELETE'])
@@ -42,3 +50,4 @@ def organizations_detail(request, pk):
             serializer.save()
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+

@@ -92,6 +92,14 @@ DATABASES = {
     'HOST':'localhost',
     'PORT':'',
     }
+    # 'default': {
+    # 'ENGINE': 'django.db.backends.mysql',
+    # 'NAME': 'collaboratorydb',
+    # 'USER': 'root',
+    # 'PASSWORD': 'FIREbird*',
+    # 'HOST': 'localhost',
+    # 'PORT': '',
+    # }
 }
 
 # Password validation
