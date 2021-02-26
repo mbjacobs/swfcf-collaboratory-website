@@ -6,19 +6,19 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 
 from .serializers import *
-from .models import Organization, Changemakers, Regions
+from .models import Organization, Changemaker, Region
 
 class OrganizationViewSet(viewsets.ModelViewSet):
 	queryset=Organization.objects.all().order_by('name')
 	serializer_class = OrganizationSerializer
 
-class ChangemakersViewSet(viewsets.ModelViewSet):
-    serializer_class = ChangemakersSerializer
-    queryset = Changemakers.objects.all().order_by('cid')
+class ChangemakerViewSet(viewsets.ModelViewSet):
+    serializer_class = ChangemakerSerializer
+    queryset = Changemaker.objects.all().order_by('cid')
 
-class RegionsViewSet(viewsets.ModelViewSet):
-    serializer_class = RegionsSerializer
-    queryset = Regions.objects.all().order_by('rid')
+class RegionViewSet(viewsets.ModelViewSet):
+    serializer_class = RegionSerializer
+    queryset = Region.objects.all().order_by('rid')
 
 @api_view(['GET', 'POST'])
 def organizations_list(request):

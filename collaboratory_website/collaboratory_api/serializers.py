@@ -1,19 +1,19 @@
 #serializers.py
 
 from rest_framework import serializers
-from .models import Organization, Regions, Changemakers
+from .models import Organization, Region, Changemaker
 
 class OrganizationSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Organization
-		fields = ('ein', 'name', 'grantid', 'address1', 'address2', 'city', 'state', 'zip', 'country', 'phone', 'missionstmt', 'website', 'causes', 'regionid' )
+		fields = ('ein', 'name','address1', 'address2', 'city', 'state', 'zip', 'country', 'phone', 'missionstmt', 'website', 'causes', 'regionid' )
 
-class RegionsSerializer(serializers.HyperlinkedModelSerializer):
+class RegionSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
-		model = Regions
+		model = Region
 		fields = ('rid', 'regionname')
 
-class ChangemakersSerializer(serializers.HyperlinkedModelSerializer):
+class ChangemakerSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
-		model = Changemakers
+		model = Changemaker
 		fields = ('cid', 'fname', 'lname', 'orgein', 'regionid' )

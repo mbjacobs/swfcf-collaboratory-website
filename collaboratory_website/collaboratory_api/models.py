@@ -10,43 +10,42 @@ from django.db import models
 class Organization(models.Model):
     ein = models.IntegerField(db_column='EIN', primary_key=True)  # Field name made lowercase.
     name = models.CharField(db_column='Name', max_length=50)  # Field name made lowercase.
-    grantid = models.IntegerField(db_column='GrantID')  # Field name made lowercase.
     address1 = models.CharField(db_column='Address1', max_length=50)  # Field name made lowercase.
     address2 = models.CharField(db_column='Address2', max_length=25)  # Field name made lowercase.
     city = models.CharField(db_column='City', max_length=25)  # Field name made lowercase.
     state = models.CharField(db_column='State', max_length=2)  # Field name made lowercase.
     zip = models.IntegerField(db_column='Zip')  # Field name made lowercase.
     country = models.CharField(db_column='Country', max_length=3)  # Field name made lowercase.
-    phone = models.IntegerField(db_column='Phone')  # Field name made lowercase.
+    phone = models.CharField(db_column='Phone', max_length=14)  # Field name made lowercase.
     missionstmt = models.TextField(db_column='MissionStmt')  # Field name made lowercase.
     website = models.CharField(db_column='Website', max_length=25)  # Field name made lowercase.
     causes = models.TextField(db_column='Causes')  # Field name made lowercase.
-    regionid = models.ForeignKey('Regions', models.DO_NOTHING, db_column='RegionID')  # Field name made lowercase.
+    regionid = models.ForeignKey('Region', models.DO_NOTHING, db_column='RegionID')  # Field name made lowercase.
 
     class Meta:
         # managed = False
         db_table = 'Organization'
 
 
-class Regions(models.Model):
+class Region(models.Model):
     rid = models.IntegerField(db_column='RID', primary_key=True)  # Field name made lowercase.
     regionname = models.CharField(db_column='RegionName', max_length=25)  # Field name made lowercase.
 
     class Meta:
         # managed = False
-        db_table = 'Regions'
+        db_table = 'Region'
 
 
-class Changemakers(models.Model):
+class Changemaker(models.Model):
     cid = models.IntegerField(db_column='CID', primary_key=True)  # Field name made lowercase.
     fname = models.CharField(db_column='Fname', max_length=25)  # Field name made lowercase.
     lname = models.CharField(db_column='Lname', max_length=25)  # Field name made lowercase.
     orgein = models.ForeignKey('Organization', models.DO_NOTHING, db_column='OrgEIN')  # Field name made lowercase.
-    regionid = models.ForeignKey('Regions', models.DO_NOTHING, db_column='RegionID')  # Field name made lowercase.
+    regionid = models.ForeignKey('Region', models.DO_NOTHING, db_column='RegionID')  # Field name made lowercase.
 
     class Meta:
         # managed = False
-        db_table = 'Changemakers'
+        db_table = 'Changemaker'
 
 
 

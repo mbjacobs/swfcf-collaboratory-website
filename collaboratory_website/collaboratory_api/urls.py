@@ -6,8 +6,8 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register(r'organizations', views.OrganizationViewSet)
-router.register(r'changemakers', views.ChangemakersViewSet)
-router.register(r'regions', views.RegionsViewSet)
+router.register(r'changemakers', views.ChangemakerViewSet)
+router.register(r'regions', views.RegionViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
