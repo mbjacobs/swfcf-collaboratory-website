@@ -40,6 +40,7 @@ class Changemaker(models.Model):
     cid = models.IntegerField(db_column='CID', primary_key=True)  # Field name made lowercase.
     fname = models.CharField(db_column='Fname', max_length=25)  # Field name made lowercase.
     lname = models.CharField(db_column='Lname', max_length=25)  # Field name made lowercase.
+    email =  models.CharField(db_column="Email", max_length=50, default="email@domain.com")
     orgein = models.ForeignKey('Organization', models.DO_NOTHING, db_column='OrgEIN')  # Field name made lowercase.
     regionid = models.ForeignKey('Region', models.DO_NOTHING, db_column='RegionID')  # Field name made lowercase.
 

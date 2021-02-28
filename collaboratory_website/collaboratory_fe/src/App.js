@@ -1,14 +1,13 @@
 import React, { Component, Fragment } from "react";
-import Header from "./components/Header";
-import Home from "./components/Home";
-import FixedMenuLayout from "./components/FixedMenuLayout";
+import Page from "./components/Page";
+import Footer from "./components/Footer";
 
 class App extends Component {
   render() {
     return (
       <Fragment>
-        <Header />
-        <FixedMenuLayout />
+        <Page/>
+        <Footer/>
       </Fragment>
     );
   }
