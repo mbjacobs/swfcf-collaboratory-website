@@ -16,4 +16,4 @@ class RegionSerializer(serializers.HyperlinkedModelSerializer):
 class ChangemakerSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Changemaker
-		fields = ('cid', 'fname', 'lname', 'orgein', 'regionid' )
+		fields = ('cid', 'fname', 'lname', 'email', 'orgein', 'regionid' )

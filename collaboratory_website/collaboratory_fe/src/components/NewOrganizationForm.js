@@ -16,6 +16,26 @@ class NewOrganizationForm extends React.Component {
       };
   }
 
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //       ein: null,
+  //       name: null,
+  //       address1: null,
+  //       address2: null,
+  //       city: null,
+  //       state: null,
+  //       zip: null,
+  //       country: null,
+  //       phone: null,
+  //       missionstmt: null,
+  //       website: null,
+  //       causes: null,
+  //       regionid: null,
+  //     };
+  // }
+
+
   componentDidMount() {
     if (this.props.organization) {
       const { pk, name, ein } = this.props.organization;

@@ -14,7 +14,9 @@ router.register(r'regions', views.RegionViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    re_path(r'^api/organizations/$', views.organizations_list),
-    re_path(r'^api/organizations/([0-9])$', views.organizations_detail),
+    re_path(r'^organizations/$', views.organizations_list),
+    re_path(r'^organizations/([0-9])$', views.organizations_detail),
+    re_path(r'^changemakers/$', views.changemakers_list),
+    re_path(r'^changemakers/([0-9])$', views.changemakers_detail),
 ]
 
