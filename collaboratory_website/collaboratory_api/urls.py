@@ -8,6 +8,7 @@ router = routers.DefaultRouter()
 router.register(r'organizations', views.OrganizationViewSet)
 router.register(r'changemakers', views.ChangemakerViewSet)
 router.register(r'regions', views.RegionViewSet)
+router.register(r'users', views.UserViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
@@ -18,5 +19,7 @@ urlpatterns = [
     re_path(r'^organizations/([0-9])$', views.organizations_detail),
     re_path(r'^changemakers/$', views.changemakers_list),
     re_path(r'^changemakers/([0-9])$', views.changemakers_detail),
+    re_path(r'^users/$', views.users_list),
+    re_path(r'^users/([0-9])$', views.users_detail),
 ]
 

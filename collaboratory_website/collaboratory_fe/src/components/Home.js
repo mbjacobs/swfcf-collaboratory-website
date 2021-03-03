@@ -3,6 +3,8 @@ import { Col, Row } from "reactstrap";
 import OrganizationList from "./OrganizationList";
 import NewOrganizationModal from "./NewOrganizationModal";
 import ChangemakerList from "./ChangemakerList";
+import UserList from "./UserList"
+
 import {
   Header,
   Container,
@@ -12,12 +14,13 @@ import "../styles/Home.css";
 
 import axios from "axios";
 
-import { ORGANIZATIONS_API_URL, CHANGEMAKERS_API_URL } from "../constants";
+import { ORGANIZATIONS_API_URL, CHANGEMAKERS_API_URL, USERS_API_URL } from "../constants";
 
 class Home extends Component {
   state = {
     organizations: [],
-    changemakers: []
+    changemakers: [],
+    users: [],
   };
 
   componentDidMount() {
@@ -32,9 +35,14 @@ class Home extends Component {
     axios.get(CHANGEMAKERS_API_URL).then(res => this.setState({ changemakers: res.data }));
   }
 
+  getUsers = () => {
+    axios.get(USERS_API_URL).then(res => this.setState({ users: res.data }));
+  }
+
   resetState = () => {
     this.getOrganizations();
     this.getChangemakers();
+    this.getUsers();
   };
 
   render() {
@@ -69,6 +77,18 @@ class Home extends Component {
           </Col>
         </Row>
         </Container>
+        <Container style={{ marginTop: "20px" }}>
+          <h2>User Profile</h2>
+        <Row>
+          <Col>
+            <UserList
+              users={this.state.users}
+              resetState={this.resetState}
+            />
+          </Col>
+        </Row>
+        </Container>
+
     </Segment>
     );
   }

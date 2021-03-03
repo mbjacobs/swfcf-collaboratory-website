@@ -1,7 +1,7 @@
 #serializers.py
 
 from rest_framework import serializers
-from .models import Organization, Region, Changemaker
+from .models import Organization, Region, Changemaker, User
 
 class OrganizationSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
@@ -17,3 +17,8 @@ class ChangemakerSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Changemaker
 		fields = ('cid', 'fname', 'lname', 'email', 'orgein', 'regionid' )
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ('uid', 'firstname', 'lastname', 'preferredpronouns')
