@@ -7,17 +7,6 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
-class User(models.Model):
-    uid = models.IntegerField(db_column='UID', primary_key=True)  # Field name made lowercase.
-    firstname = models.CharField(db_column='FirstName', max_length=25)  # Field name made lowercase.
-    lastname =  models.CharField(db_column='LastName', max_length=25)  # Field name made lowercase.
-    preferredpronouns = models.CharField(db_column='pronouns', max_length=10)  # Field name made lowercase.
-    #profileimage = 
-
-    class Meta:
-        # managed = False
-        db_table = 'User'
-
 class Organization(models.Model):
     ein = models.IntegerField(db_column='EIN', primary_key=True)  # Field name made lowercase.
     name = models.CharField(db_column='Name', max_length=50)  # Field name made lowercase.
@@ -58,6 +47,8 @@ class Changemaker(models.Model):
     class Meta:
         # managed = False
         db_table = 'Changemaker'
+
+
 
 # class AuthGroup(models.Model):
 #     name = models.CharField(unique=True, max_length=150)

@@ -39,8 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'collaboratory_api.apps.CollaboratoryApiConfig',
     'rest_framework',
-    'corsheaders',
-    #'collaboratory_api'
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
