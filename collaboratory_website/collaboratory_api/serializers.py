@@ -21,4 +21,4 @@ class ChangemakerSerializer(serializers.HyperlinkedModelSerializer):
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ('uid', 'firstname', 'lastname', 'preferredpronouns')
+        fields = ('uid', 'firstname', 'lastname', 'preferredpronouns', 'email', 'password')
