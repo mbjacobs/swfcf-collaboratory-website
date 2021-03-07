@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Col, Row } from "reactstrap";
 import OrganizationList from "./OrganizationList";
 import NewOrganizationModal from "./NewOrganizationModal";
-import ChangemakerList from "./ChangemakerList";
+// import ChangemakerList from "./ChangemakerList";
 import UserList from "./UserList"
 
 import {
@@ -14,12 +14,11 @@ import "../styles/Home.css";
 
 import axios from "axios";
 
-import { ORGANIZATIONS_API_URL, CHANGEMAKERS_API_URL, USERS_API_URL } from "../constants";
+import { ORGANIZATIONS_API_URL, USERS_API_URL } from "../constants";
 
 class Home extends Component {
   state = {
     organizations: [],
-    changemakers: [],
     users: [],
   };
 
@@ -31,17 +30,12 @@ class Home extends Component {
     axios.get(ORGANIZATIONS_API_URL).then(res => this.setState({ organizations: res.data }));
   };
 
-  getChangemakers = () => {
-    axios.get(CHANGEMAKERS_API_URL).then(res => this.setState({ changemakers: res.data }));
-  }
-
   getUsers = () => {
     axios.get(USERS_API_URL).then(res => this.setState({ users: res.data }));
   }
 
   resetState = () => {
     this.getOrganizations();
-    this.getChangemakers();
     this.getUsers();
   };
 
@@ -66,7 +60,7 @@ class Home extends Component {
             </Col>
           </Row>
         </Container>
-        <Container style={{ marginTop: "20px" }}>
+        {/* <Container style={{ marginTop: "20px" }}>
           <h2>Changemaker Directory</h2>
         <Row>
           <Col>
@@ -76,7 +70,7 @@ class Home extends Component {
             />
           </Col>
         </Row>
-        </Container>
+        </Container> */}
         <Container style={{ marginTop: "20px" }}>
           <h2>User Profile</h2>
         <Row>

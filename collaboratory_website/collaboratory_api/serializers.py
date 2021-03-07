@@ -1,24 +1,66 @@
 #serializers.py
 
 from rest_framework import serializers
-from .models import Organization, Region, Changemaker, User
-
-class OrganizationSerializer(serializers.HyperlinkedModelSerializer):
-	class Meta:
-		model = Organization
-		fields = ('ein', 'name','address1', 'address2', 'city', 'state', 'zip', 'country', 'phone', 'missionstmt', 'website', 'causes', 'regionid' )
+from .models import Region, Role, Cause, User, Organization, Event, Channel, Announcement, Post, Organization_Region, Organization_Cause_Alignment, User_Event_Attendance
 
 class RegionSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Region
-		fields = ('rid', 'regionname')
+		fields = ('region_id', 'name')
 
-class ChangemakerSerializer(serializers.HyperlinkedModelSerializer):
+class RoleSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
-		model = Changemaker
-		fields = ('cid', 'fname', 'lname', 'email', 'orgein', 'regionid' )
+		model = Role
+		fields = ('role_id', 'name')
+
+class CauseSerializer(serializers.HyperlinkedModelSerializer):
+	class Meta:
+		model = Role
+		fields = ('cause_id', 'name')
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ('uid', 'firstname', 'lastname', 'preferredpronouns', 'email', 'password')
+        fields = ('user_id', 'username', 'password', 'first_name', 'last_name', 'phone', 'email', 'registration_date', 'preferred_pronouns', 'role_id', 'organization_id')
+
+class OrganizationSerializer(serializers.HyperlinkedModelSerializer):
+	class Meta:
+		model = Organization
+		fields = ('ein', 'name', 'address1', 'address2', 'city', 'state', 'zip', 'country', 'phone', 'mission_stmt', 'website', 'facebook', 'twitter', 'founded', 'region_id')
+
+class EventSerializer(serializers.HyperlinkedModelSerializer):
+	class Meta:
+		model = Event
+		fields = ('event_id', 'name', 'date', 'description', 'organization_id', 'user_id')
+
+class ChannelSerializer(serializers.HyperlinkedModelSerializer):
+	class Meta:
+		model = Channel
+		fields = ('channel_id', 'name', 'description')
+
+class AnnouncementSerializer(serializers.HyperlinkedModelSerializer):
+	class Meta:
+		model = Announcement
+		fields = ('announcement_id', 'title', 'text', 'date', 'user_id', 'event_id')
+
+class PostSerializer(serializers.HyperlinkedModelSerializer):
+	class Meta:
+		model = Post
+		fields = ('post_id', 'title', 'text', 'channel_id', 'user_id')
+
+
+class OrganizationRegionSerializer(serializers.HyperlinkedModelSerializer):
+	class Meta:
+		model = Organization_Region
+		fields = ('id', 'organization_id', 'region_id')
+
+
+class OrganizationCauseSerializer(serializers.HyperlinkedModelSerializer):
+	class Meta:
+		model = Organization_Cause_Alignment
+		fields = ('id', 'organization_id', 'cause_id')
+
+class UserEventSerializer(serializers.HyperlinkedModelSerializer):
+	class Meta:
+		model = User_Event_Attendance
+		fields = ('id', 'user_id', 'event_id')

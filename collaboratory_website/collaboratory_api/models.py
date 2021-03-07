@@ -7,59 +7,140 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
-class User(models.Model):
-    uid = models.IntegerField(db_column='UID', primary_key=True)  # Field name made lowercase.
-    firstname = models.CharField(db_column='FirstName', max_length=25)  # Field name made lowercase.
-    lastname =  models.CharField(db_column='LastName', max_length=25)  # Field name made lowercase.
-    preferredpronouns = models.CharField(db_column='Pronouns', max_length=10)  # Field name made lowercase.
-    email =  models.EmailField(default="email@domain.com")
-    password = models.CharField(db_column='Password', max_length=50, default="1234")
-    #profileimage = 
-
-    class Meta:
-        # managed = False
-        db_table = 'User'
-
-class Organization(models.Model):
-    ein = models.IntegerField(db_column='EIN', primary_key=True)  # Field name made lowercase.
-    name = models.CharField(db_column='Name', max_length=50)  # Field name made lowercase.
-    address1 = models.CharField(db_column='Address1', max_length=50)  # Field name made lowercase.
-    address2 = models.CharField(db_column='Address2', max_length=25)  # Field name made lowercase.
-    city = models.CharField(db_column='City', max_length=25)  # Field name made lowercase.
-    state = models.CharField(db_column='State', max_length=2)  # Field name made lowercase.
-    zip = models.IntegerField(db_column='Zip')  # Field name made lowercase.
-    country = models.CharField(db_column='Country', max_length=3)  # Field name made lowercase.
-    phone = models.CharField(db_column='Phone', max_length=14)  # Field name made lowercase.
-    missionstmt = models.TextField(db_column='MissionStmt')  # Field name made lowercase.
-    website = models.CharField(db_column='Website', max_length=25)  # Field name made lowercase.
-    causes = models.TextField(db_column='Causes')  # Field name made lowercase.
-    regionid = models.ForeignKey('Region', models.DO_NOTHING, db_column='RegionID')  # Field name made lowercase.
-
-    class Meta:
-        # managed = False
-        db_table = 'Organization'
-
-
 class Region(models.Model):
-    rid = models.IntegerField(db_column='RID', primary_key=True)  # Field name made lowercase.
-    regionname = models.CharField(db_column='RegionName', max_length=25)  # Field name made lowercase.
-
+    region_id = models.IntegerField(db_column='RegionID', primary_key=True)  
+    name = models.CharField(db_column='Name', max_length=50)  
+    
     class Meta:
         # managed = False
         db_table = 'Region'
 
-
-class Changemaker(models.Model):
-    cid = models.IntegerField(db_column='CID', primary_key=True)  # Field name made lowercase.
-    fname = models.CharField(db_column='Fname', max_length=25)  # Field name made lowercase.
-    lname = models.CharField(db_column='Lname', max_length=25)  # Field name made lowercase.
-    email =  models.CharField(db_column="Email", max_length=50, default="email@domain.com")
-    orgein = models.ForeignKey('Organization', models.DO_NOTHING, db_column='OrgEIN')  # Field name made lowercase.
-    regionid = models.ForeignKey('Region', models.DO_NOTHING, db_column='RegionID')  # Field name made lowercase.
-
+class Role(models.Model):
+    role_id = models.IntegerField(db_column='RoleID', primary_key=True)
+    name = models.CharField(db_column='Name', max_length=50)
+    
     class Meta:
         # managed = False
-        db_table = 'Changemaker'
+        db_table = 'Role'
+
+class Cause(models.Model):
+    cause_id = models.IntegerField(db_column='CauseID', primary_key=True)
+    name = models.CharField(db_column='Name', max_length=50)
+    
+    class Meta:
+        # managed = False
+        db_table = 'Cause'
+
+class Organization(models.Model):
+    ein = models.IntegerField(db_column='EIN', primary_key=True) 
+    name = models.CharField(db_column='Name', max_length=50)  
+    address1 = models.CharField(db_column='Address1', max_length=100)  
+    address2 = models.CharField(db_column='Address2', max_length=50) 
+    city = models.CharField(db_column='City', max_length=50)  
+    state = models.CharField(db_column='State', max_length=2)  
+    zip = models.IntegerField(db_column='Zip')  
+    country = models.CharField(db_column='Country', max_length=50)  
+    phone = models.CharField(db_column='Phone', max_length=25)  
+    mission_stmt = models.TextField(db_column='MissionStmt')
+    email =  models.EmailField(blank=True, null=True) 
+    website = models.URLField(db_column='Website', max_length=200, blank=True, null=True)
+    facebook = models.URLField(db_column='Facebook', max_length=200, blank=True, null=True)  
+    twitter = models.URLField(db_column='Twitter', max_length=200, blank=True, null=True)
+    founded = models.IntegerField(db_column='YearFounded', blank=True, null=True)
+    region_id = models.ForeignKey(Region, on_delete=models.SET_NULL, db_column='RegionID', null=True)  
+    
+    class Meta:
+        # managed = False
+        db_table = 'Organization'
+
+class User(models.Model):
+    user_id = models.IntegerField(db_column='UserID', primary_key=True)
+    username = models.CharField(db_column="Username", max_length=50)
+    password = models.CharField(db_column='Password', max_length=50, default="1234")
+    first_name = models.CharField(db_column='FirstName', max_length=50) 
+    last_name =  models.CharField(db_column='LastName', max_length=50)
+    phone = models.CharField(db_column='Phone', max_length=14)
+    email =  models.EmailField(default="email@domain.com")
+    registration_date = models.DateField(db_column="RegistrationDate", auto_now_add=True)
+    preferred_pronouns = models.CharField(db_column='Pronouns', max_length=25, blank=True, null=True)  
+    role_id = models.ForeignKey(Role, on_delete=models.SET_NULL, db_column='RoleID', null=True)  
+    organization_id = models.ForeignKey(Organization, db_column='OrganizationID', default='N/A', on_delete=models.SET_DEFAULT, blank=True, null=False)
+    #profileimage = 
+    
+    class Meta:
+        # managed = False
+        db_table = 'User'
+
+class Event(models.Model):
+    event_id = models.IntegerField(db_column='EventID', primary_key=True)
+    name = models.CharField(db_column='Name', max_length=50)
+    date = models.DateTimeField(db_column="Date", blank=True, null=True)
+    description = models.TextField(db_column="Text")
+    organization_id = models.ForeignKey(Organization, on_delete=models.SET_NULL, db_column='OrganizationID', null=True)
+    user_id = models.ForeignKey(User, on_delete=models.SET_NULL, db_column='UserID', null=True)
+    
+    class Meta:
+        # managed = False
+        db_table = 'Event'
+
+class Channel(models.Model):
+    channel_id = models.IntegerField(db_column='ChannelID', primary_key=True)
+    name = models.CharField(db_column='Name', max_length=50)
+    description = models.TextField(db_column='Text')
+    
+    class Meta:
+        # managed = False
+        db_table = 'Channel'
+
+class Announcement(models.Model):
+    announcement_id = models.IntegerField(db_column='AnnouncementID', primary_key=True)
+    title = models.CharField(db_column='Title', max_length=50)
+    text = models.TextField(db_column='Text')
+    date = models.DateTimeField(db_column="Date", auto_now_add=True)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserID')
+    event_id = models.ForeignKey(Event, on_delete=models.SET_NULL, db_column='EventID', blank=True, null=True)  
+    
+    class Meta:
+        # managed = False
+        db_table = 'Announcement'
+
+class Post(models.Model):
+    post_id = models.IntegerField(db_column='PostID', primary_key=True)
+    title = models.CharField(db_column='Title', max_length=50)
+    text = models.TextField(db_column='Text')
+    channel_id = models.ForeignKey(Channel, on_delete=models.CASCADE, db_column='ChannelID')
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserID')
+    
+    class Meta:
+        # managed = False
+        db_table = 'Post'
+
+class Organization_Region(models.Model):
+    id = models.IntegerField(primary_key=True)
+    organization_id = models.ForeignKey(Organization, on_delete=models.CASCADE, db_column='OrganizationID')
+    region_id = models.ForeignKey(Region, on_delete=models.CASCADE, db_column='RegionID')
+    
+    class Meta:
+        # managed = False
+        db_table = 'Organization-Region'
+
+class Organization_Cause_Alignment(models.Model):
+    id = models.IntegerField(primary_key=True)
+    organization_id = models.ForeignKey(Organization, on_delete=models.CASCADE, db_column='OrganizationID')
+    cause_id = models.ForeignKey(Cause, on_delete=models.CASCADE, db_column='CauseID')
+    
+    class Meta:
+        # managed = False
+        db_table = 'Organization-Cause-Alignment'
+
+class User_Event_Attendance(models.Model):
+    id = models.IntegerField(primary_key=True)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserID')
+    event_id = models.ForeignKey(Event, on_delete=models.CASCADE, db_column='EventID')
+    
+    class Meta:
+        # managed = False
+        db_table = 'User-Event-Attendance'     
 
 # class AuthGroup(models.Model):
 #     name = models.CharField(unique=True, max_length=150)

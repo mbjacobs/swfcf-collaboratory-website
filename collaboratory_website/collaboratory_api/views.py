@@ -6,23 +6,56 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 
 from .serializers import *
-from .models import Organization, Changemaker, Region, User
-
-class OrganizationViewSet(viewsets.ModelViewSet):
-	queryset=Organization.objects.all().order_by('name')
-	serializer_class = OrganizationSerializer
-
-class ChangemakerViewSet(viewsets.ModelViewSet):
-    serializer_class = ChangemakerSerializer
-    queryset = Changemaker.objects.all().order_by('cid')
+from .models import *
+# from .models import Region, Role, Cause, User, Organization, Event, Channel, Announcement, Post, Organization_Region, Organization_Cause_Alignment, User_Event_Attendance
 
 class RegionViewSet(viewsets.ModelViewSet):
     serializer_class = RegionSerializer
-    queryset = Region.objects.all().order_by('rid')
+    queryset = Region.objects.all().order_by('region_id')
+
+class RoleViewSet(viewsets.ModelViewSet):
+    serializer_class = RoleSerializer
+    queryset = Role.objects.all().order_by('role_id')
+
+class CauseViewSet(viewsets.ModelViewSet):
+    serializer_class = CauseSerializer
+    queryset = Cause.objects.all().order_by('cause_id')
 
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
-    queryset = User.objects.all().order_by('uid')
+    queryset = User.objects.all().order_by('user_id')
+
+class OrganizationViewSet(viewsets.ModelViewSet):
+    serializer_class = OrganizationSerializer
+    queryset=Organization.objects.all().order_by('name')
+
+class EventViewSet(viewsets.ModelViewSet):
+    serializer_class = EventSerializer
+    queryset = Event.objects.all().order_by('event_id')
+
+class ChannelViewSet(viewsets.ModelViewSet):
+    serializer_class = ChannelSerializer
+    queryset = Channel.objects.all().order_by('channel_id')
+
+class AnnouncementViewSet(viewsets.ModelViewSet):
+    serializer_class = AnnouncementSerializer
+    queryset = Announcement.objects.all().order_by('announcement_id')
+
+class PostViewSet(viewsets.ModelViewSet):
+    serializer_class = PostSerializer
+    queryset = Post.objects.all().order_by('post_id')
+
+class OrganizationRegionViewSet(viewsets.ModelViewSet):
+    serializer_class = OrganizationRegionSerializer
+    queryset = Organization_Region.objects.all().order_by('id')
+
+class OrganizationCauseViewSet(viewsets.ModelViewSet):
+    serializer_class = OrganizationCauseSerializer
+    queryset = Organization_Cause_Alignment.objects.all().order_by('id')
+
+class UserEventViewSet(viewsets.ModelViewSet):
+    serializer_class = UserEventSerializer
+    queryset = User_Event_Attendance.objects.all().order_by('id')
 
 ## Organization API Views ##
 @api_view(['GET', 'POST'])
@@ -56,40 +89,6 @@ def organizations_detail(request, pk):
 
     elif request.method == 'DELETE':
         organization.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-## Changemaker API Views ##
-@api_view(['GET', 'POST'])
-def changemakers_list(request):
-    if request.method == 'GET':
-        data = Changemaker.objects.all()
-        serializer = ChangemakerSerializer(data, context={'request': request}, many=True)
-        return Response(serializer.data)
-
-    elif request.method == 'POST':
-        serializer = ChangemakerSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-@api_view(['PUT', 'DELETE'])
-def changemakers_detail(request, pk):
-    try:
-        changemaker = Changemaker.objects.get(pk=pk)
-    except Changemaker.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'PUT':
-        serializer = ChangemakerSerializer(changemaker, data=request.data,context={'request': request})
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        changemaker.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 ## User API Views ##
