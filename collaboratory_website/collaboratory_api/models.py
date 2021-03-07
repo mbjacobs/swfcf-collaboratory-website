@@ -11,7 +11,9 @@ class User(models.Model):
     uid = models.IntegerField(db_column='UID', primary_key=True)  # Field name made lowercase.
     firstname = models.CharField(db_column='FirstName', max_length=25)  # Field name made lowercase.
     lastname =  models.CharField(db_column='LastName', max_length=25)  # Field name made lowercase.
-    preferredpronouns = models.CharField(db_column='pronouns', max_length=10)  # Field name made lowercase.
+    preferredpronouns = models.CharField(db_column='Pronouns', max_length=10)  # Field name made lowercase.
+    email =  models.EmailField(default="email@domain.com")
+    password = models.CharField(db_column='Password', max_length=50, default="1234")
     #profileimage = 
 
     class Meta:
