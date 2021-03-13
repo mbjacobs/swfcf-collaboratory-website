@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.urls import include, path, re_path
 from rest_framework import routers
 from . import views
+from django.views.generic.base import TemplateView
 
 router = routers.DefaultRouter()
 router.register(r'regions', views.RegionViewSet)
@@ -24,5 +25,9 @@ urlpatterns = [
     re_path(r'^organizations/([0-9])$', views.organizations_detail),
     re_path(r'^users/$', views.users_list),
     re_path(r'^users/([0-9])$', views.users_detail),
+    # this route catches the "naked" URL with no path specified. you can link to it in most places
+    path(r'dashboard/', views.MainView.as_view(), name='react_app'),  
+    # this route catches any url below the main one, so the path can be passed to the front end
+    path(r'dashboard/<path:path>', views.MainView.as_view(), name='react_app_with_path'),
 ]
 

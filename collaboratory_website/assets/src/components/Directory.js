@@ -1,16 +1,13 @@
 import React, { Component } from "react";
 import { Col, Row } from "reactstrap";
 import OrganizationList from "./OrganizationList";
-import NewOrganizationModal from "./NewOrganizationModal";
-// import ChangemakerList from "./ChangemakerList";
 import UserList from "./UserList"
-
 import {
   Header,
   Container,
   Segment,
 } from 'semantic-ui-react';
-import "../styles/Home.css";
+import "../styles/Page.css";
 
 import axios from "axios";
 
@@ -41,10 +38,21 @@ class Home extends Component {
 
   render() {
     return (
-      <Segment>
+      <Segment class="body-content">
         <Header>
-          <h1>Page Title</h1>
+          <h1>Directory</h1>
         </Header>
+        <h2>Enter the name of the organization or person you’d like to find.</h2>
+        <Container>
+          <p>Search Bar will go here</p>
+          <p>OR</p>
+          <p>Check a few boxes, and we’ll help you find what you’re looking for:</p>
+          <Container>
+            <p>Filters</p>
+          </Container>
+        </Container>
+        <h2>Search Results</h2>
+        <h3>Organizations List</h3>
         <Container style={{ marginTop: "20px" }}>
           <Row>
             <Col>
@@ -54,26 +62,10 @@ class Home extends Component {
               />
             </Col>
           </Row>
-          <Row>
-            <Col>
-              <NewOrganizationModal create={true} resetState={this.resetState} />
-            </Col>
-          </Row>
         </Container>
-        {/* <Container style={{ marginTop: "20px" }}>
-          <h2>Changemaker Directory</h2>
-        <Row>
-          <Col>
-            <ChangemakerList
-              changemakers={this.state.changemakers}
-              resetState={this.resetState}
-            />
-          </Col>
-        </Row>
-        </Container> */}
+        <h3>User List</h3>
         <Container style={{ marginTop: "20px" }}>
-          <h2>User Profile</h2>
-        <Row>
+          <Row>
           <Col>
             <UserList
               users={this.state.users}
@@ -82,7 +74,6 @@ class Home extends Component {
           </Col>
         </Row>
         </Container>
-
     </Segment>
     );
   }

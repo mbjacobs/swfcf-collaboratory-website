@@ -1,8 +1,0 @@
-#page {
-  display: flex;
-}
-
-#page .ui.segment {
-    border: unset;
-    box-shadow: unset;
-}

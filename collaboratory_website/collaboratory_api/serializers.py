@@ -48,12 +48,10 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
 		model = Post
 		fields = ('post_id', 'title', 'text', 'channel_id', 'user_id')
 
-
 class OrganizationRegionSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Organization_Region
 		fields = ('id', 'organization_id', 'region_id')
-
 
 class OrganizationCauseSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:

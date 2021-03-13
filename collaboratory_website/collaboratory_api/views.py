@@ -4,10 +4,17 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
+from django.views.generic.base import TemplateView
 
 from .serializers import *
 from .models import *
-# from .models import Region, Role, Cause, User, Organization, Event, Channel, Announcement, Post, Organization_Region, Organization_Cause_Alignment, User_Event_Attendance
+
+# @method_decorator(login_required, name='dispatch') #We will want this later for login
+class MainView(TemplateView):
+    # our hybrid template, shown above
+    template_name = 'dashboard.html'
+    def get_context_data(self, **kwargs):
+        return {'context_variable': 'value'}
 
 class RegionViewSet(viewsets.ModelViewSet):
     serializer_class = RegionSerializer
