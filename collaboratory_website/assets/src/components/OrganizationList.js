@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Table } from "reactstrap";
-import NewOrganizationModal from "./NewOrganizationModal";
-import ConfirmRemovalModal from "./ConfirmRemovalModal";
+// import NewOrganizationModal from "./NewOrganizationModal";
+// import ConfirmRemovalModal from "./ConfirmRemovalModal";
 
 class OrganizationList extends Component {
   render() {
@@ -27,7 +27,7 @@ class OrganizationList extends Component {
               <tr key={organization.pk}>
                 <td>{organization.name}</td>
                 <td>{organization.ein}</td>
-                <td align="center">
+                {/* <td align="center">
                   <NewOrganizationModal
                     create={false}
                     Organization={organization}
@@ -38,7 +38,7 @@ class OrganizationList extends Component {
                     pk={organization.pk}
                     resetState={this.props.resetState}
                   />
-                </td>
+                </td> */}
               </tr>
             ))
           )}
