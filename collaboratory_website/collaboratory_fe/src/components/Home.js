@@ -4,6 +4,7 @@ import OrganizationList from "./OrganizationList";
 import NewOrganizationModal from "./NewOrganizationModal";
 // import ChangemakerList from "./ChangemakerList";
 import UserList from "./UserList"
+import NewUserModal from "./NewUserModal";
 
 import {
   Header,
@@ -81,6 +82,11 @@ class Home extends Component {
             />
           </Col>
         </Row>
+        <Row>
+            <Col>
+              <NewUserModal create={true} resetState={this.resetState} />
+            </Col>
+          </Row>
         </Container>
 
     </Segment>

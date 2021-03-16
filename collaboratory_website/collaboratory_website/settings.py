@@ -37,10 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'collaboratory_api.apps.CollaboratoryApiConfig',
+    #'collaboratory_api.apps.CollaboratoryApiConfig',
     'rest_framework',
     'corsheaders',
-    #'collaboratory_api'
+    'collaboratory_api'
 ]
 
 MIDDLEWARE = [
@@ -140,3 +140,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# After login it will redirect to dashboard.
+LOGIN_REDIRECT_URL = "dashboard"
+
+# Logout screen
+LOGOUT_REDIRECT_URL = "dashboard"

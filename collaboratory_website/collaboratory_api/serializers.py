@@ -2,6 +2,7 @@
 
 from rest_framework import serializers
 from .models import Region, Role, Cause, User, Organization, Event, Channel, Announcement, Post, Organization_Region, Organization_Cause_Alignment, User_Event_Attendance
+from rest_framework.validators import UniqueValidator
 
 class RegionSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
@@ -19,9 +20,15 @@ class CauseSerializer(serializers.HyperlinkedModelSerializer):
 		fields = ('cause_id', 'name')
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ('user_id', 'username', 'password', 'first_name', 'last_name', 'phone', 'email', 'registration_date', 'preferred_pronouns', 'role_id', 'organization_id')
+	'''
+	email = serializers.EmailField(required=True, validators=[UniqueValidator(queryset=User.objects.all())])
+	username = serializers.CharField(validators=[UniqueValidator(queryset=User.objects.all())])
+	password = serializers.CharField(min_length=8)
+	'''
+	
+	class Meta:
+		model = User
+		fields = ('user_id', 'username', 'password', 'first_name', 'last_name', 'phone', 'email', 'registration_date', 'preferred_pronouns', 'role_id', 'organization_id')
 
 class OrganizationSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:

@@ -1,13 +1,21 @@
-from django.shortcuts import render
+# from django.shortcuts import render
 
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 
+# For user testing...
+from rest_framework.views import APIView
+
 from .serializers import *
 from .models import *
 # from .models import Region, Role, Cause, User, Organization, Event, Channel, Announcement, Post, Organization_Region, Organization_Cause_Alignment, User_Event_Attendance
+
+from django.contrib.auth import login
+from django.shortcuts import redirect, render
+from django.urls import reverse
+from collaboratory_api.forms import CustomUserCreationForm
 
 class RegionViewSet(viewsets.ModelViewSet):
     serializer_class = RegionSerializer
@@ -124,3 +132,20 @@ def users_detail(request, pk):
     elif request.method == 'DELETE':
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+# Registration
+def dashboard(request):
+    return render(request, "users/dashboard.html")
+
+def register(request):
+    if request.method == "GET":
+        return render(
+            request, "users/register.html",
+            {"form": CustomUserCreationForm}
+        )
+    elif request.method == "POST":
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect(reverse("dashboard"))
