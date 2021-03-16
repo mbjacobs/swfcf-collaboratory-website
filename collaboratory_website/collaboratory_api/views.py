@@ -1,9 +1,10 @@
-# from django.shortcuts import render
+from django.shortcuts import render
 
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
+from django.views.generic.base import TemplateView
 
 # For user testing...
 from rest_framework.views import APIView
@@ -134,8 +135,8 @@ def users_detail(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # Registration
-def dashboard(request):
-    return render(request, "users/dashboard.html")
+#def dashboard(request):
+#    return render(request, "users/dashboard.html")
 
 def register(request):
     if request.method == "GET":
@@ -148,4 +149,16 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect(reverse("dashboard"))
+            return redirect(reverse("react_app"))
+
+#login
+def landing(request):
+    return render(request, "others/landing.html")
+
+
+# @method_decorator(login_required, name='dispatch') #We will want this later for login
+class MainView(TemplateView):
+    # our hybrid template, shown above
+    template_name = 'dashboard.html'
+    def get_context_data(self, **kwargs):
+        return {'context_variable': 'value'}

@@ -1,9 +1,7 @@
-<!--users/templates/users/dashboard.html-->
-
+<!--templates/others/landing.html-->
 {% extends 'base.html' %}
 
 {% block content %}
-
 Hello, {{ user.username|default:'Guest' }}!
 
 <div>
@@ -13,5 +11,4 @@ Hello, {{ user.username|default:'Guest' }}!
         <a href="{% url 'login' %}">Login</a>
     {% endif %}
 </div>
-
 {% endblock %}

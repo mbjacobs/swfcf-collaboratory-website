@@ -59,7 +59,7 @@ ROOT_URLCONF = 'collaboratory_website.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -141,8 +141,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# After login it will redirect to dashboard.
-LOGIN_REDIRECT_URL = "dashboard"
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
-# Logout screen
-LOGOUT_REDIRECT_URL = "dashboard"
+#login & logout
+LOGIN_REDIRECT_URL = "react_app"
+LOGOUT_REDIRECT_URL = "landing"
