@@ -144,3 +144,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+#login & logout
+LOGIN_REDIRECT_URL = "react_app"
+LOGOUT_REDIRECT_URL = "landing"

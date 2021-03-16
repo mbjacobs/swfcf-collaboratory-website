@@ -131,3 +131,7 @@ def users_detail(request, pk):
     elif request.method == 'DELETE':
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+#login
+def landing(request):
+    return render(request, "others/landing.html")

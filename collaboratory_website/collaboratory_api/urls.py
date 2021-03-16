@@ -4,6 +4,8 @@ from django.urls import include, path, re_path
 from rest_framework import routers
 from . import views
 from django.views.generic.base import TemplateView
+from django.conf.urls import url
+from collaboratory_api.views import landing
 
 router = routers.DefaultRouter()
 router.register(r'regions', views.RegionViewSet)
@@ -29,5 +31,10 @@ urlpatterns = [
     path(r'dashboard/', views.MainView.as_view(), name='react_app'),  
     # this route catches any url below the main one, so the path can be passed to the front end
     path(r'dashboard/<path:path>', views.MainView.as_view(), name='react_app_with_path'),
+    #login #what's the difference between path and url? path & re_path?
+    path('accounts/', include('django.contrib.auth.urls')),
+    re_path(r'^landing', views.landing, name='landing')
+    # url(r"^landing/", landing, name="landing"),
+    # url(r"^dashboard/", dashboard, name="dashboard"),
 ]
 
