@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Col, Row } from "reactstrap";
 import OrganizationList from "./OrganizationList";
 import UserList from "./UserList"
+import NewUserModal from "./NewUserModal";
+
 import {
   Header,
   Container,
@@ -73,6 +75,11 @@ class Home extends Component {
             />
           </Col>
         </Row>
+        <Row>
+            <Col>
+              <NewUserModal create={true} resetState={this.resetState} />
+            </Col>
+          </Row>
         </Container>
     </Segment>
     );

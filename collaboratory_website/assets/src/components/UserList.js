@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Table } from "reactstrap";
+import NewUserModal from "./NewUserModal";
 
 class UserList extends Component {
   render() {

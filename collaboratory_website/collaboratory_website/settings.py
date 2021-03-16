@@ -37,10 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'collaboratory_api.apps.CollaboratoryApiConfig',
+    #'collaboratory_api.apps.CollaboratoryApiConfig',
     'rest_framework',
     'corsheaders',
-    #'collaboratory_api'
+    'collaboratory_api'
 ]
 
 MIDDLEWARE = [
