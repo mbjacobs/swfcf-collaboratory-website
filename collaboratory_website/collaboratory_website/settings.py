@@ -95,10 +95,10 @@ DATABASES = {
     }
     # 'default': {
     # 'ENGINE': 'django.db.backends.mysql',
-    # 'NAME': 'collaboratorydb',
-    # 'USER': 'root',
-    # 'PASSWORD': 'FIREbird*',
-    # 'HOST': 'localhost',
+    # # 'NAME': 'collaboratorydb',
+    # # 'USER': 'root',
+    # # 'PASSWORD': '',
+    # # 'HOST': 'localhost',
     # 'PORT': '',
     # }
 }
