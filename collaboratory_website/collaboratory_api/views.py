@@ -6,15 +6,16 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from django.views.generic.base import TemplateView
 
+# For user testing...
+from rest_framework.views import APIView
+
 from .serializers import *
 from .models import *
 
-# @method_decorator(login_required, name='dispatch') #We will want this later for login
-class MainView(TemplateView):
-    # our hybrid template, shown above
-    template_name = 'dashboard.html'
-    def get_context_data(self, **kwargs):
-        return {'context_variable': 'value'}
+from django.contrib.auth import login
+from django.shortcuts import redirect, render
+from django.urls import reverse
+from collaboratory_api.forms import CustomUserCreationForm
 
 class RegionViewSet(viewsets.ModelViewSet):
     serializer_class = RegionSerializer
@@ -132,6 +133,31 @@ def users_detail(request, pk):
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+# Registration
+#def dashboard(request):
+#    return render(request, "users/dashboard.html")
+
+def register(request):
+    if request.method == "GET":
+        return render(
+            request, "users/register.html",
+            {"form": CustomUserCreationForm}
+        )
+    elif request.method == "POST":
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect(reverse("react_app"))
+
 #login
 def landing(request):
     return render(request, "others/landing.html")
+
+
+# @method_decorator(login_required, name='dispatch') #We will want this later for login
+class MainView(TemplateView):
+    # our hybrid template, shown above
+    template_name = 'dashboard.html'
+    def get_context_data(self, **kwargs):
+        return {'context_variable': 'value'}
