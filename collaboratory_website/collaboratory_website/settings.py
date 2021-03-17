@@ -29,8 +29,11 @@ ALLOWED_HOSTS = []
 CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
+IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 INSTALLED_APPS = [
+    'collaboratory_api',
+    'import_export',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,7 +43,6 @@ INSTALLED_APPS = [
     #'collaboratory_api.apps.CollaboratoryApiConfig',
     'rest_framework',
     'corsheaders',
-    'collaboratory_api'
 ]
 
 MIDDLEWARE = [

@@ -32,22 +32,22 @@ class Cause(models.Model):
         db_table = 'Cause'
 
 class Organization(models.Model):
-    ein = models.IntegerField(db_column='EIN', primary_key=True) 
-    name = models.CharField(db_column='Name', max_length=50)  
-    address1 = models.CharField(db_column='Address1', max_length=100)  
-    address2 = models.CharField(db_column='Address2', max_length=50) 
-    city = models.CharField(db_column='City', max_length=50)  
-    state = models.CharField(db_column='State', max_length=2)  
-    zip = models.IntegerField(db_column='Zip')  
-    country = models.CharField(db_column='Country', max_length=50)  
-    phone = models.CharField(db_column='Phone', max_length=25)  
+    ein = models.IntegerField(db_column='EIN', primary_key=True)
+    name = models.CharField(db_column='Name', max_length=200)
+    address1 = models.CharField(db_column='Address1', max_length=100)
+    address2 = models.CharField(db_column='Address2', max_length=50)
+    city = models.CharField(db_column='City', max_length=50)
+    state = models.CharField(db_column='State', max_length=2)
+    zip = models.CharField(db_column='Zip', max_length = 20, blank=True, null=True)
+    country = models.CharField(db_column='Country', max_length=50)
+    phone = models.CharField(db_column='Phone', max_length=45)
     mission_stmt = models.TextField(db_column='MissionStmt')
-    email =  models.EmailField(blank=True, null=True) 
+    email =  models.EmailField(blank=True, null=True)
     website = models.URLField(db_column='Website', max_length=200, blank=True, null=True)
-    facebook = models.URLField(db_column='Facebook', max_length=200, blank=True, null=True)  
+    facebook = models.URLField(db_column='Facebook', max_length=200, blank=True, null=True)
     twitter = models.URLField(db_column='Twitter', max_length=200, blank=True, null=True)
     founded = models.IntegerField(db_column='YearFounded', blank=True, null=True)
-    region_id = models.ForeignKey(Region, on_delete=models.SET_NULL, db_column='RegionID', null=True)  
+    region_id = models.ForeignKey(Region, on_delete=models.SET_NULL, db_column='RegionID', null=True)
     
     class Meta:
         # managed = False
