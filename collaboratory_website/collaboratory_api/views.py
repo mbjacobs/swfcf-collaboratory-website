@@ -16,6 +16,8 @@ from django.contrib.auth import login
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from collaboratory_api.forms import CustomUserCreationForm
+from tablib import Dataset
+from .resources import OrganizationResource
 
 class RegionViewSet(viewsets.ModelViewSet):
     serializer_class = RegionSerializer
@@ -194,3 +196,20 @@ class MainView(TemplateView):
     template_name = 'dashboard.html'
     def get_context_data(self, **kwargs):
         return {'context_variable': 'value'}
+
+
+# Import View, Organization
+
+def simple_upload(request):
+    if request.method == 'POST':
+        organization_resource = OrganizationResource()
+        dataset = Dataset()
+        new_orgs = request.FILES['myfile']
+
+        imported_data = dataset.load(new_orgs.read())
+        result = organization_resource.import_data(dataset, dry_run=True)  # Test the data import
+
+        if not result.has_errors():
+            organization_resource.import_data(dataset, dry_run=False)  # Actually import now
+
+    return render(request, 'core/simple_upload.html')
