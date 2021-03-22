@@ -33,7 +33,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class OrganizationSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Organization
-		fields = ('ein', 'name', 'address1', 'address2', 'city', 'state', 'zip', 'country', 'phone', 'mission_stmt', 'website', 'facebook', 'twitter', 'founded', 'region_id')
+		fields = ('org_id', 'ein', 'name', 'address1', 'address2', 'city', 'state', 'zip', 'country', 'phone', 'mission', 'website', 'facebook', 'twitter', 'founded', 'cause_id', 'region_id')
 
 class EventSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
