@@ -18,6 +18,12 @@ from django.urls import reverse
 from collaboratory_api.forms import CustomUserCreationForm
 from tablib import Dataset
 from .resources import OrganizationResource
+from rest_framework import filters
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import generics
+
+from .serializers import *
 
 class RegionViewSet(viewsets.ModelViewSet):
     serializer_class = RegionSerializer
@@ -38,6 +44,13 @@ class UserViewSet(viewsets.ModelViewSet):
 class OrganizationViewSet(viewsets.ModelViewSet):
     serializer_class = OrganizationSerializer
     queryset=Organization.objects.all().order_by('name')
+
+# specific view for search
+class OrganizationSearchFilter(generics.ListAPIView):
+    queryset = Organization.objects.all()
+    serializer_class = OrganizationSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['$name']
 
 class EventViewSet(viewsets.ModelViewSet):
     serializer_class = EventSerializer
@@ -67,39 +80,41 @@ class UserEventViewSet(viewsets.ModelViewSet):
     serializer_class = UserEventSerializer
     queryset = User_Event_Attendance.objects.all().order_by('id')
 
-## Organization API Views ##
-@api_view(['GET', 'POST'])
-def organizations_list(request):
-    if request.method == 'GET':
-        data = Organization.objects.all()
-        serializer = OrganizationSerializer(data, context={'request': request}, many=True)
-        return Response(serializer.data)
+## Organization API Views: Former per React ##
+# Now, we are rending only results from the search.
 
-    elif request.method == 'POST':
-        serializer = OrganizationSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
+# @api_view(['GET', 'POST'])
+# def organizations_list(request):
+#     if request.method == 'GET':
+#         data = Organization.objects.all()
+#         serializer = OrganizationSerializer(data, context={'request': request}, many=True)
+#         return Response(serializer.data)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#     elif request.method == 'POST':
+#         serializer = OrganizationSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(status=status.HTTP_201_CREATED)
 
-@api_view(['PUT', 'DELETE'])
-def organizations_detail(request, pk):
-    try:
-        organization = Organization.objects.get(pk=pk)
-    except Organization.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    if request.method == 'PUT':
-        serializer = OrganizationSerializer(organization, data=request.data,context={'request': request})
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# @api_view(['PUT', 'DELETE'])
+# def organizations_detail(request, pk):
+#     try:
+#         organization = Organization.objects.get(pk=pk)
+#     except Organization.DoesNotExist:
+#         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    elif request.method == 'DELETE':
-        organization.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+#     if request.method == 'PUT':
+#         serializer = OrganizationSerializer(organization, data=request.data,context={'request': request})
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(status=status.HTTP_204_NO_CONTENT)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#     elif request.method == 'DELETE':
+#         organization.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
 
 ## User API Views ##
 @api_view(['GET', 'POST'])
