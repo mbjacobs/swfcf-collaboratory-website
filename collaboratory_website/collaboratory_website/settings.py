@@ -32,6 +32,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 INSTALLED_APPS = [
+    'django_filters',
     'collaboratory_api',
     'import_export',
     'django.contrib.admin',

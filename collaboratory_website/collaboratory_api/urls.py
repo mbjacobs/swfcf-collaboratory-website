@@ -10,6 +10,8 @@ from collaboratory_api.views import landing
 from django.conf.urls import include, url
 from collaboratory_api.views import register, landing
 
+from .views import *
+
 router = routers.DefaultRouter()
 router.register(r'regions', views.RegionViewSet)
 router.register(r'roles', views.RoleViewSet)
@@ -33,12 +35,12 @@ urlpatterns = [
     re_path(r'^landing', views.landing, name='landing'),
     #registration
     url(r"^register/", register, name="register"),
-    
+
     # Rest API + React (Working)
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    re_path(r'^organizations/$', views.organizations_list),
-    re_path(r'^organizations/([0-9])$', views.organizations_detail),
+    # re_path(r'^organizations/$', views.organizations_list),
+    # re_path(r'^organizations/([0-9])$', views.organizations_detail),
     re_path(r'^users/$', views.users_list),
     re_path(r'^users/([0-9])$', views.users_detail),
     # this route catches the "naked" URL with no path specified. you can link to it in most places
@@ -47,8 +49,11 @@ urlpatterns = [
     path(r'dashboard/<path:path>', views.MainView.as_view(), name='react_app_with_path'),
     #login #what's the difference between path and url? path & re_path?
     path('accounts/', include('django.contrib.auth.urls')),
-    re_path(r'^landing', views.landing, name='landing')
+    re_path(r'^landing', views.landing, name='landing'),
     # url(r"^landing/", landing, name="landing"),
     # url(r"^dashboard/", dashboard, name="dashboard"),
+
+    # Search filters
+    path('orgsearch/', OrganizationSearchFilter.as_view(), name = 'Organization Search')
 ]
 
