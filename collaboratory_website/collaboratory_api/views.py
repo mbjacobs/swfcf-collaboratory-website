@@ -209,13 +209,13 @@ def channels_detail(request, pk):
 @api_view(['GET', 'POST'])
 def posts_list(request):
     if request.method == 'GET':
-        data = User.objects.all()
-        serializer = UserSerializer(
+        data = Post.objects.all()
+        serializer = PostSerializer(
             data, context={'request': request}, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = UserSerializer(data=request.data)
+        serializer = PostSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
