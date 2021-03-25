@@ -6,7 +6,7 @@ class OrganizationResource(resources.ModelResource):
         model = Organization
         skip_unchanged = True
         # exclude = ('id',)
-        import_id_fields = ['ein']
+        import_id_fields = ['org_id']
         # fields = ('ein', 'name', 'address1', 'address2', 'city', 'state', 'zip', 'country', 'phone', 'mission_stmt', 'email', 'website', 'facebook', 'twitter', 'founded', 'region_id')
 
 

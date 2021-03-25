@@ -10,7 +10,7 @@ from django.db import models
 class Region(models.Model):
     region_id = models.IntegerField(db_column='RegionID', primary_key=True)  
     name = models.CharField(db_column='Name', max_length=50)  
-    
+
     class Meta:
         # managed = False
         db_table = 'Region'
@@ -18,7 +18,7 @@ class Region(models.Model):
 class Role(models.Model):
     role_id = models.IntegerField(db_column='RoleID', primary_key=True)
     name = models.CharField(db_column='Name', max_length=50)
-    
+
     class Meta:
         # managed = False
         db_table = 'Role'
@@ -26,16 +26,19 @@ class Role(models.Model):
 class Cause(models.Model):
     cause_id = models.IntegerField(db_column='CauseID', primary_key=True)
     name = models.CharField(db_column='Name', max_length=50)
-    
+
     class Meta:
         # managed = False
         db_table = 'Cause'
 
 class Organization(models.Model):
-    ein = models.IntegerField(db_column='EIN', primary_key=True)
+    org_id = models.AutoField(db_column='OrgID', primary_key=True)
+    #org_id, this needs to be the PK
+    ein = models.IntegerField(db_column='EIN')
+    # ein = models.IntegerField(db_column='EIN', primary_key=True)
     name = models.CharField(db_column='Name', max_length=200)
     address1 = models.CharField(db_column='Address1', max_length=100)
-    address2 = models.CharField(db_column='Address2', max_length=50)
+    address2 = models.CharField(db_column='Address2', max_length=50, blank=True, null=True)
     city = models.CharField(db_column='City', max_length=50)
     state = models.CharField(db_column='State', max_length=2)
     zip = models.CharField(db_column='Zip', max_length = 20, blank=True, null=True)
@@ -47,8 +50,11 @@ class Organization(models.Model):
     facebook = models.URLField(db_column='Facebook', max_length=200, blank=True, null=True)
     twitter = models.URLField(db_column='Twitter', max_length=200, blank=True, null=True)
     founded = models.IntegerField(db_column='YearFounded', blank=True, null=True)
-    region_id = models.ForeignKey(Region, on_delete=models.SET_NULL, db_column='RegionID', null=True)
-    
+    cause_id = models.ManyToManyField(Cause) #, db_column='CauseID' , related_name='organization', blank=True)
+    region_id = models.ManyToManyField(Region) #', db_column='RegionID', related_name='organization', blank=True)
+    # region_id = models.ForeignKey(Region, on_delete=models.SET_NULL, db_column='RegionID', null=True)
+    # will definitely need a cause_foreign key (cause_id)
+
     class Meta:
         # managed = False
         db_table = 'Organization'
@@ -65,8 +71,8 @@ class User(models.Model):
     preferred_pronouns = models.CharField(db_column='Pronouns', max_length=25, blank=True, null=True)  
     role_id = models.ForeignKey(Role, on_delete=models.SET_NULL, db_column='RoleID', null=True)  
     organization_id = models.ForeignKey(Organization, db_column='OrganizationID', default='N/A', on_delete=models.SET_DEFAULT, blank=True, null=False)
-    #profileimage = 
-    
+    #profileimage =
+
     class Meta:
         # managed = False
         db_table = 'User'

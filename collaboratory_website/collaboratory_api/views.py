@@ -135,7 +135,7 @@ def users_detail(request, pk):
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-## Events API Views ##
+## Events API View ##
 @api_view(['GET', 'POST'])
 def events_list(request):
     if request.method == 'GET':
@@ -152,6 +152,79 @@ def events_list(request):
             return Response(status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+## Channels API Views ##
+@api_view(['GET', 'POST'])
+def channels_list(request):
+    if request.method == 'GET':
+        data = User.objects.all()
+        serializer = UserSerializer(
+            data, context={'request': request}, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PUT', 'DELETE'])
+def channels_detail(request, pk):
+    try:
+        channel = Channel.objects.get(pk=pk)
+    except Channel.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        serializer = EventSerializer(
+            channel, data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        channel.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+## Posts API Views ##
+@api_view(['GET', 'POST'])
+def posts_list(request):
+    if request.method == 'GET':
+        data = Post.objects.all()
+        serializer = PostSerializer(
+            data, context={'request': request}, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = PostSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PUT', 'DELETE'])
+def posts_detail(request, pk):
+    try:
+        post1 = Post1.objects.get(pk=pk)
+    except Post1.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        serializer = EventSerializer(
+            post1, data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        post1.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 # Registration
 #def dashboard(request):
