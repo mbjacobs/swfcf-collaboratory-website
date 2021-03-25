@@ -1,41 +1,57 @@
 import React, { Component } from "react";
-import { Table } from "reactstrap";
-import NewPostModal from "./NewPostModal";
+import {
+    Container,
+  } from 'semantic-ui-react';
+import axios from "axios";
+
+import {POSTS_API_URL} from "../constants";
 
 class PostList extends Component {
+
+    state = {
+        posts: [],
+      };
+    
+      componentDidMount() {
+        this.resetState();
+      }
+    
+      getPosts = () => {
+        axios.get(POSTS_API_URL).then(res => this.setState({ posts: res.data }));
+      };
+    
+      resetState = () => {
+        this.getPosts();
+      };
+
     render() {
-        const posts = this.props.posts;
         return (
-            <Table dark>
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Text</th>
-                        <th>User</th>
-                        <th>Channel</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {!posts || posts.length <= 0 ? (
-                        <tr>
-                            <td colSpan="4" align="center">
-                                <b>Ops, no posts available yet</b>
-                            </td>
-                        </tr>
-                    ) : (
-                        posts.map(post => (
-                            <tr key={post.post_id}>
-                                <td>{post.title}</td>
-                                <td>{post.text}</td>
-                                <td>{post.user_id}</td>
-                                <td>{post.channel_id}</td>
-                            </tr>
-                        ))
-                    )}
-                </tbody>
-            </Table>
+            <Container style={{ marginTop: "20px" }}>
+            {!this.state.posts || this.state.posts.length <= 0 ? (<p>No posts yet!</p>) : 
+            (
+                this.state.posts.map(post => (
+                <Post
+                    key={post.post_id}
+                    title={post.name}
+                    text={post.text}
+                  />
+                ))
+            )}
+        </Container>
         );
     }
 }
 
 export default PostList;
+
+const Post = (props) => {
+    return (
+        <div class="ui card fluid">
+            <div class="content">
+                <div class="header">{props.title}</div>
+                <div class="meta"><strong>Channel:</strong>{props.channel_id} NAME <strong>Posted by:</strong>{props.user_id} USERNAME</div>
+                <div class="description">{props.text}</div>
+            </div>
+        </div>
+    );
+}
