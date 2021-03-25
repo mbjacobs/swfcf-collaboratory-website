@@ -12,6 +12,8 @@ class OrganizationList extends Component {
           <tr>
             <th>Name</th>
             <th>EIN</th>
+            <th>Cause</th>
+            <th>Region</th>
             <th></th>
           </tr>
         </thead>
@@ -27,6 +29,8 @@ class OrganizationList extends Component {
               <tr key={organization.pk}>
                 <td>{organization.name}</td>
                 <td>{organization.ein}</td>
+                <td>{organization.cause_id}</td>
+                <td>{organization.region_id}</td>
                 {/* <td align="center">
                   <NewOrganizationModal
                     create={false}
