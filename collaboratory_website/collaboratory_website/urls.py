@@ -22,4 +22,4 @@ urlpatterns = [
     path('', include('collaboratory_api.urls')),
     #url(r"^", include("collaboratory_api.urls")),
     #url(r'^users_test/$', include('collaboratory_api.urls')),
- ] 
+ ]
