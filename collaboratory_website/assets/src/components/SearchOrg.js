@@ -39,14 +39,16 @@ class SearchOrg extends Component {
     render() {
         return (
             <div id="main">
+            <div class="example">
             <input
                     name="text"
                     type="text"
-                    placeholder="Search for an Organization"
+                    placeholder="Search for an organization"
                     onChange={event => this.handleOnChange(event)}
                     value={this.state.searchValue}
                 />
-            <button onClick={this.handleSearch}>Search</button>
+            <button class="example" onClick={this.handleSearch}>Search</button>
+            </div>
             {this.state.organizations ? (
             <div>
                 {this.state.organizations.map((organization) => (
