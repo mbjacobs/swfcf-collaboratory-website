@@ -38,7 +38,7 @@ class OrganizationSerializer(serializers.HyperlinkedModelSerializer):
 class EventSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Event
-		fields = ('event_id', 'name', 'date', 'description', 'organization_id', 'user_id')
+		fields = ('name', 'date', 'description', 'organization_id', 'user_id')
 
 class ChannelSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:

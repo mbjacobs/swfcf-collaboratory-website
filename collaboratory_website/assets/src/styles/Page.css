@@ -20,3 +20,17 @@ h2 {
 h3 {
   font-size: large;
 }
+
+/*Begin Events Page*/
+
+#event-filters-container {
+  display: flex;
+  justify-content: center;
+}
+
+#event-filters-container .ui.button {
+  font-size: 24px;
+  margin: 5%;
+}
+
+/*End Events Page*/

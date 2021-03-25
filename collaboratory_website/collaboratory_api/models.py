@@ -72,7 +72,7 @@ class User(models.Model):
         db_table = 'User'
 
 class Event(models.Model):
-    event_id = models.IntegerField(db_column='EventID', primary_key=True)
+    event_id = models.AutoField(db_column='EventID', primary_key=True)
     name = models.CharField(db_column='Name', max_length=50)
     date = models.DateTimeField(db_column="Date", blank=True, null=True)
     description = models.TextField(db_column="Text")
