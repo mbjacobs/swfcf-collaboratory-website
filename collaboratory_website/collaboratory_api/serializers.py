@@ -16,7 +16,7 @@ class RoleSerializer(serializers.HyperlinkedModelSerializer):
 
 class CauseSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
-		model = Role
+		model = Cause
 		fields = ('cause_id', 'name')
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -31,6 +31,18 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 		fields = ('user_id', 'username', 'password', 'first_name', 'last_name', 'phone', 'email', 'registration_date', 'preferred_pronouns', 'role_id', 'organization_id')
 
 class OrganizationSerializer(serializers.HyperlinkedModelSerializer):
+	cause_id = serializers.SlugRelatedField(
+	many=True,
+	read_only=True,
+	slug_field='name'
+	)
+	region_id = serializers.SlugRelatedField(
+	many=True,
+	read_only=True,
+	slug_field='name'
+	)
+    # cause = serializers.SlugRelatedField(read_only=True, slug_field='name', many=True)
+    # region = serializers.SlugRelatedField(read_only=True, slug_field='name', many=True)
 	class Meta:
 		model = Organization
 		fields = ('org_id', 'ein', 'name', 'address1', 'address2', 'city', 'state', 'zip', 'country', 'phone', 'mission', 'website', 'facebook', 'twitter', 'founded', 'cause_id', 'region_id')
@@ -38,7 +50,7 @@ class OrganizationSerializer(serializers.HyperlinkedModelSerializer):
 class EventSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Event
-		fields = ('event_id', 'name', 'date', 'description', 'organization_id', 'user_id')
+		fields = ('name', 'date', 'description', 'organization_id', 'user_id')
 
 class ChannelSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:

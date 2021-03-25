@@ -1,54 +1,93 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import {
     Header,
     Segment,
     Container,
-    Button,
-    Card
+    Button
   } from 'semantic-ui-react';
 import "../styles/Page.css";
+import NewEventModal from "./NewEventModal";
 import axios from "axios";
 
 import { EVENTS_API_URL } from "../constants";
 
 class Events extends React.Component {
-    state = {
-        events: [],
-      };
-    
-      componentDidMount() {
-        this.resetState();
-      }
-    
-      getEvents= () => {
-        axios.get(EVENTS_API_URL).then(res => this.setState({ events: res.data }));
-      };
-    
-      resetState = () => {
-        this.getEvents();
-      };
+
+  constructor (props) {
+    super(props);
+    this.state = {
+      events: [],
+    };
+    // this.formatDates()
+  }
+
+  componentDidMount() {
+    this.resetState();
+  }
+
+  getEvents= () => {
+    axios.get(EVENTS_API_URL).then(res => this.setState({ events: res.data }));
+  };
+
+  resetState = () => {
+    this.getEvents();
+  };
+
+  // formatDate = () => {
+  //   const newEvents = [...this.state.events]
+  //   // this.state.events.forEach(event => {
+  //   //   this.setState({
+      
+  //   //   })
+  //   // });
+  // }
+
+  // sortEvents = () => {
+  //   console.log("in sortEvents")
+  //   const newEvents = [...this.state.events];
+  //   console.log(newEvents);
+  //   newEvents.sort(function(a, b){return b.date - a.date});
+  //   console.log("Sorted...");
+  //   console.log(newEvents);
+
+  //   this.setState({
+  //     events: newEvents
+  //   })
+  // }
+
+  // filterOnPastEvents = () => {
+  //   const filteredEvents = [...this.state.events];
+  //   filteredEvents.sort(function(a, b){return b.date - a.date});
+  // }
+
+  // filterOnUpcomingEvents = () => {
+
+  // }
 
     render() {
-        console.log(this.state.events)
         return (
               <Segment class="body-content">
                   <Header>
-                      <h1>Events</h1>
+                      <h1>Socials and Events</h1>
                   </Header>
-                  <Container>
-                      <Button>Upcoming</Button>
-                      <Button>Past Events</Button>
+                  <Container id="event-filters-container">
+                      <Button size="huge">Upcoming</Button>
+                      <Button size="huge">Past Events</Button>
                   </Container>
+                  <NewEventModal
+                        create={true}
+                        resetState={this.resetState}
+                      />
                   <Container style={{ marginTop: "20px" }}>
                     {!this.state.events || this.state.events.length <= 0 ? (<p>No events yet!</p>) : 
                     (
                         this.state.events.map(event => (
-                        <Event
-                            key={event.pk}
-                            name={event.name}
-                            date={event.date}
-                            description={event.description}
-                          />
+                          <Event
+                              key={event.event_id}
+                              name={event.name}
+                              date={event.date}
+                              description={event.description}
+                            />
                         ))
                     )}
                 </Container>
@@ -61,7 +100,7 @@ export default Events;
 
 const Event = (props) => {
     return (
-        <div class="ui card">
+        <div class="ui card fluid">
             <div class="content">
                 <div class="header">{props.name}</div>
                 <div class="meta">{props.date}</div>

@@ -34,7 +34,7 @@ class Cause(models.Model):
 class Organization(models.Model):
     org_id = models.AutoField(db_column='OrgID', primary_key=True)
     #org_id, this needs to be the PK
-    ein = models.IntegerField(db_column='EIN')
+    ein = models.IntegerField(db_column='EIN', blank=True, null=True)
     # ein = models.IntegerField(db_column='EIN', primary_key=True)
     name = models.CharField(db_column='Name', max_length=200)
     address1 = models.CharField(db_column='Address1', max_length=100)
@@ -68,8 +68,8 @@ class User(models.Model):
     phone = models.CharField(db_column='Phone', max_length=14)
     email =  models.EmailField(default="email@domain.com")
     registration_date = models.DateField(db_column="RegistrationDate", auto_now_add=True)
-    preferred_pronouns = models.CharField(db_column='Pronouns', max_length=25, blank=True, null=True)  
-    role_id = models.ForeignKey(Role, on_delete=models.SET_NULL, db_column='RoleID', null=True)  
+    preferred_pronouns = models.CharField(db_column='Pronouns', max_length=25, blank=True, null=True)
+    role_id = models.ForeignKey(Role, on_delete=models.SET_NULL, db_column='RoleID', null=True)
     organization_id = models.ForeignKey(Organization, db_column='OrganizationID', default='N/A', on_delete=models.SET_DEFAULT, blank=True, null=False)
     #profileimage =
 
@@ -78,7 +78,7 @@ class User(models.Model):
         db_table = 'User'
 
 class Event(models.Model):
-    event_id = models.IntegerField(db_column='EventID', primary_key=True)
+    event_id = models.AutoField(db_column='EventID', primary_key=True)
     name = models.CharField(db_column='Name', max_length=50)
     date = models.DateTimeField(db_column="Date", blank=True, null=True)
     description = models.TextField(db_column="Text")
