@@ -34,8 +34,8 @@ export default class SidebarMenu extends Component {
               // active={activeItem === 'profile'}
             >
               <i class="huge icons">
-                <i class="big circle outline icon"></i>
-                <i class="user icon"></i>
+                <i className="big circle outline icon"></i>
+                <i className="user icon"></i>
               </i>
               <p>Changey McChangemaker</p>
             </Menu.Item>
