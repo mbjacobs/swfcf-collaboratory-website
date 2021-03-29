@@ -1,0 +1,22 @@
+#profile {
+    display: flex;
+  }
+  
+  #profile .ui.segment {
+      border: unset;
+      box-shadow: unset;
+      padding-left: 5%;
+  }
+  
+  h1 {
+    font-size: x-large;
+    padding-top: 3%;
+  }
+  
+  h2 {
+    font-size: larger;
+  }
+  
+  h3 {
+    font-size: large;
+  }
