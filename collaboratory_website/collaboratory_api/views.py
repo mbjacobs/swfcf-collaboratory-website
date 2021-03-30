@@ -41,11 +41,18 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all().order_by('user_id')
 
+# specific view for person search
+class PersonSearchFilter(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['$first_name', '$last_name']
+
 class OrganizationViewSet(viewsets.ModelViewSet):
     serializer_class = OrganizationSerializer
     queryset=Organization.objects.all().order_by('name')
 
-# specific view for search
+# specific view for organization search
 class OrganizationSearchFilter(generics.ListAPIView):
     queryset = Organization.objects.all()
     serializer_class = OrganizationSerializer

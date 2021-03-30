@@ -8,8 +8,8 @@
 from django.db import models
 
 class Region(models.Model):
-    region_id = models.IntegerField(db_column='RegionID', primary_key=True)  
-    name = models.CharField(db_column='Name', max_length=50)  
+    region_id = models.IntegerField(db_column='RegionID', primary_key=True)
+    name = models.CharField(db_column='Name', max_length=50)
 
     class Meta:
         # managed = False
@@ -84,7 +84,7 @@ class Event(models.Model):
     description = models.TextField(db_column="Text")
     organization_id = models.ForeignKey(Organization, on_delete=models.SET_NULL, db_column='OrganizationID', null=True)
     user_id = models.ForeignKey(User, on_delete=models.SET_NULL, db_column='UserID', null=True)
-    
+
     class Meta:
         # managed = False
         db_table = 'Event'
@@ -93,7 +93,7 @@ class Channel(models.Model):
     channel_id = models.IntegerField(db_column='ChannelID', primary_key=True)
     name = models.CharField(db_column='Name', max_length=50)
     description = models.TextField(db_column='Text')
-    
+
     class Meta:
         # managed = False
         db_table = 'Channel'
@@ -104,8 +104,8 @@ class Announcement(models.Model):
     text = models.TextField(db_column='Text')
     date = models.DateTimeField(db_column="Date", auto_now_add=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserID')
-    event_id = models.ForeignKey(Event, on_delete=models.SET_NULL, db_column='EventID', blank=True, null=True)  
-    
+    event_id = models.ForeignKey(Event, on_delete=models.SET_NULL, db_column='EventID', blank=True, null=True)
+
     class Meta:
         # managed = False
         db_table = 'Announcement'
@@ -116,7 +116,7 @@ class Post(models.Model):
     text = models.TextField(db_column='Text')
     channel_id = models.ForeignKey(Channel, on_delete=models.CASCADE, db_column='ChannelID')
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserID')
-    
+
     class Meta:
         # managed = False
         db_table = 'Post'
@@ -125,7 +125,7 @@ class Organization_Region(models.Model):
     id = models.IntegerField(primary_key=True)
     organization_id = models.ForeignKey(Organization, on_delete=models.CASCADE, db_column='OrganizationID')
     region_id = models.ForeignKey(Region, on_delete=models.CASCADE, db_column='RegionID')
-    
+
     class Meta:
         # managed = False
         db_table = 'Organization-Region'
@@ -134,7 +134,7 @@ class Organization_Cause_Alignment(models.Model):
     id = models.IntegerField(primary_key=True)
     organization_id = models.ForeignKey(Organization, on_delete=models.CASCADE, db_column='OrganizationID')
     cause_id = models.ForeignKey(Cause, on_delete=models.CASCADE, db_column='CauseID')
-    
+
     class Meta:
         # managed = False
         db_table = 'Organization-Cause-Alignment'
@@ -143,10 +143,10 @@ class User_Event_Attendance(models.Model):
     id = models.IntegerField(primary_key=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserID')
     event_id = models.ForeignKey(Event, on_delete=models.CASCADE, db_column='EventID')
-    
+
     class Meta:
         # managed = False
-        db_table = 'User-Event-Attendance'     
+        db_table = 'User-Event-Attendance'
 
 # class AuthGroup(models.Model):
 #     name = models.CharField(unique=True, max_length=150)

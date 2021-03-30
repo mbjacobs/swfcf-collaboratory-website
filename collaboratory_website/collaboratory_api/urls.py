@@ -55,6 +55,7 @@ urlpatterns = [
     # url(r"^dashboard/", dashboard, name="dashboard"),
 
     # Search filters
-    path('orgsearch/', OrganizationSearchFilter.as_view(), name = 'Organization Search')
+    path('orgsearch/', OrganizationSearchFilter.as_view(), name = 'Organization Search'),
+    path('personsearch/', PersonSearchFilter.as_view(), name = 'Person Search')
 ]
 

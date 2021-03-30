@@ -19,16 +19,6 @@ class CauseSerializer(serializers.HyperlinkedModelSerializer):
 		model = Cause
 		fields = ('cause_id', 'name')
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-	'''
-	email = serializers.EmailField(required=True, validators=[UniqueValidator(queryset=User.objects.all())])
-	username = serializers.CharField(validators=[UniqueValidator(queryset=User.objects.all())])
-	password = serializers.CharField(min_length=8)
-	'''
-	
-	class Meta:
-		model = User
-		fields = ('user_id', 'username', 'password', 'first_name', 'last_name', 'phone', 'email', 'registration_date', 'preferred_pronouns', 'role_id', 'organization_id')
 
 class OrganizationSerializer(serializers.HyperlinkedModelSerializer):
 	cause_id = serializers.SlugRelatedField(
@@ -46,6 +36,16 @@ class OrganizationSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Organization
 		fields = ('org_id', 'ein', 'name', 'address1', 'address2', 'city', 'state', 'zip', 'country', 'phone', 'mission', 'website', 'facebook', 'twitter', 'founded', 'cause_id', 'region_id')
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+	'''
+	email = serializers.EmailField(required=True, validators=[UniqueValidator(queryset=User.objects.all())])
+	username = serializers.CharField(validators=[UniqueValidator(queryset=User.objects.all())])
+	password = serializers.CharField(min_length=8)
+	'''
+	class Meta:
+		model = User
+		fields = ('user_id', 'username', 'password', 'first_name', 'last_name', 'phone', 'email', 'registration_date', 'preferred_pronouns', 'role_id', 'organization_id')
 
 class EventSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
