@@ -20,15 +20,11 @@ class CauseSerializer(serializers.HyperlinkedModelSerializer):
 		fields = ('cause_id', 'name')
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-	'''
-	email = serializers.EmailField(required=True, validators=[UniqueValidator(queryset=User.objects.all())])
-	username = serializers.CharField(validators=[UniqueValidator(queryset=User.objects.all())])
-	password = serializers.CharField(min_length=8)
-	'''
 	
 	class Meta:
 		model = User
-		fields = ('user_id', 'username', 'password', 'first_name', 'last_name', 'phone', 'email', 'registration_date', 'preferred_pronouns', 'role_id', 'organization_id')
+		#fields = ('user_id', 'username', 'password', 'first_name', 'last_name', 'phone', 'email', 'registration_date', 'preferred_pronouns', 'role_id', 'organization_id')
+		fields = ('user_id', 'registration_date', 'role_id', )
 
 class OrganizationSerializer(serializers.HyperlinkedModelSerializer):
 	cause_id = serializers.SlugRelatedField(

@@ -35,6 +35,9 @@ urlpatterns = [
     re_path(r'^landing', views.landing, name='landing'),
     #registration
     url(r"^register/", register, name="register"),
+    #current user
+    re_path(r'^currentusers/$', views.current_user),
+
 
     # Rest API + React (Working)
     path('', include(router.urls)),
