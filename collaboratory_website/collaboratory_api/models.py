@@ -111,11 +111,11 @@ class Announcement(models.Model):
         db_table = 'Announcement'
 
 class Post(models.Model):
-    post_id = models.IntegerField(db_column='PostID', primary_key=True)
+    post_id = models.AutoField(db_column='PostID', primary_key=True)
     title = models.CharField(db_column='Title', max_length=50)
     text = models.TextField(db_column='Text')
-    channel_id = models.ForeignKey(Channel, on_delete=models.CASCADE, db_column='ChannelID')
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserID')
+    channel_id = models.ForeignKey(Channel, on_delete=models.CASCADE, db_column='ChannelID', null=True)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserID', null=True)
     
     class Meta:
         # managed = False
