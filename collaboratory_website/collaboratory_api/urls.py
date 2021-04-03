@@ -36,7 +36,7 @@ urlpatterns = [
     #registration
     url(r"^register/", register, name="register"),
     #current user
-    re_path(r'^currentusers/$', views.current_user),
+    re_path(r'^currentuser/$', views.current_user),
 
 
     # Rest API + React (Working)

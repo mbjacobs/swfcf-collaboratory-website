@@ -6,82 +6,68 @@ import {
   } from 'semantic-ui-react';
 import "../styles/Profile.css";
 
-import { CURRENT_USER_API_URL } from "../constants";
-import axios from "axios";
+//import { CURRENT_USER_API_URL } from "../constants";
+//import axios from "axios";
 
 
 class Profile extends React.Component {
 
   constructor (props) {
     super(props);
-    this.state = {
-      users: [],
-    };
+    //console.log(this.props)
+    //console.log(this.props.data)
+  //  this.state = {
+  //   users: [],
+  //  };
     // this.formatDates()
   }
 
+
   componentDidMount() {
-    this.resetState();
+    //this.resetState();
   }
+  /*
+  getCurrentUser= () => {
+    //axios.get(CURRENT_USER_API_URL).then(res =>  {
+    //  const users = res.data; 
+    //  this.setState({ users });
 
-  getUsers= () => {
-    axios.get(CURRENT_USER_API_URL).then(res =>  {
-      const users = res.data; 
-      this.setState({ users });
+    //});
 
-    });
-
-    //axios.get(USERS_API_URL).then(res => this.setState({ users: res.data }));
+    axios.get(CURRENT_USER_API_URL).then(res => this.setState({ users: res.data }));
   };
 
   resetState = () => {
-    this.getUsers();
+    this.getCurrentUser();
   };
-
+  */
     render() {
       return (
-            <Segment class="body-content">
-              <ul>
-              { this.state.users.map(user => <li>{user.first_name}</li>)}
-              { this.state.users.map(user => <li>{user.last_name}</li>)}
-              { this.state.users.map(user => <li>{user.email}</li>)}
-              </ul>
+            <Segment className="body-content">
+            <Header>
+                <h1>User Profile</h1>
+            </Header>
 
-              <Header>
-                  <h1>User Profile</h1>
-              </Header>
+            <Container style={{ marginTop: "20px" }}>
+              <h3>First Name: </h3>
+              <ProfileCard data={this.props.data['first name']}/>
+            </Container>
 
-              <Container style={{ marginTop: "20px" }}>
-                <h3>First Name: </h3>
-                  {this.state.users.map(user => (
-                        <User
-                            key={user.user_id}
-                            first_name={user.first_name}
-                          />
-                  ))}
-              </Container>
+            <Container style={{ marginTop: "20px" }}>
+              <h3>Last Name: </h3>
+              <ProfileCard data={this.props.data['last name']}/>
+            </Container>
 
-              <Container style={{ marginTop: "20px" }}>
-                <h3>Last Name: </h3>
-                  {this.state.users.map(user => (
-                        <User
-                            key={user.user_id}
-                            last_name={user.last_name}
-                          />
-                  ))}
-              </Container>
+            <Container style={{ marginTop: "20px" }}>
+              <h3>Email: </h3>
+              <ProfileCard data={this.props.data.email}/>
+            </Container>
 
-              <Container style={{ marginTop: "20px" }}>
-                <h3>Email: </h3>
-                  {this.state.users.map(user => (
-                        <User
-                            key={user.user_id}
-                            email={user.email}
-                          />
-                  ))}
-              </Container>
-
-            </Segment>
+            <Container style={{ marginTop: "20px" }}>
+              <h3>Username: </h3>
+              <ProfileCard data={this.props.data.username}/>
+            </Container>
+          </Segment>
 
         );
     }
@@ -89,14 +75,18 @@ class Profile extends React.Component {
 
 export default Profile;
 
-const User = (props) => {
-  return (
+class ProfileCard extends React.Component {
+  constructor (props) {
+    super(props);
+  }
+
+  render () {
+    return (
       <div class="ui card fluid">
           <div class="content">
-              <div>{props.first_name}</div>
-              <div>{props.last_name}</div>
-              <div>{props.email}</div>
+              <div>{this.props.data}</div>
           </div>
       </div>
   );
+  }
 }
