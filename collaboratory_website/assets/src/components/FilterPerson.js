@@ -41,12 +41,8 @@ class FilterPerson extends Component {
 
     filterPersons = (arr) => {
         console.log('filters are running');
-        console.log(this.state.searchCauseValue)
-        console.log(this.state.searchRegionValue)
         let new_persons = [];
             for (let person of arr) {
-                console.log(person.organization_id.cause_id)
-                console.log(person.organization_id.region_id)
                 if ( (this.state.searchCauseValue == "ALL") && (this.state.searchRegionValue == "ALL") ) {
                     console.log('both ALL')
                     return arr
@@ -71,7 +67,6 @@ class FilterPerson extends Component {
                     new_persons.push(person)
                 }
             }
-    console.log(new_persons)
     return new_persons
     };
 
@@ -93,7 +88,6 @@ class FilterPerson extends Component {
     render () {
         return (
         <div>
-            <h3>this is the person filter</h3>
         <div class='item-card'>
             <h4>Regions</h4>
             <Segment>
