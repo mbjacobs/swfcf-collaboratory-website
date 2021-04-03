@@ -6,7 +6,7 @@ import {
     Button,
     Card,
     Item
-  } from 'semantic-ui-react';
+    } from 'semantic-ui-react';
 import "../styles/Page.css";
 import "../styles/Directory.css";
 
@@ -15,7 +15,6 @@ class SearchPerson extends Component {
     state = {
     searchValue: "",
     persons: [],
-    organizations : [],
     };
 
     handleOnChange = event => {
@@ -44,7 +43,7 @@ class SearchPerson extends Component {
             <input
                     name="text"
                     type="text"
-                    placeholder="Search for a person"
+                    placeholder="Search..."
                     onChange={event => this.handleOnChange(event)}
                     value={this.state.searchValue}
                 />
@@ -52,12 +51,15 @@ class SearchPerson extends Component {
             </div>
             {this.state.persons ? (
             <div>
-                {this.state.persons.map((person) => (
-                <div class = "item-card">
+                {this.state.persons.map((person, x) => (
+                <div class = "item-card" key={x}>
                     <Person
-                        key={person.user_id}
+                        key={x}
                         name={person.first_name + ' ' + person.last_name}
+                        organization={person.organization_id.name}
                         email={person.email}
+                        cause={person.organization_id.cause_id.map((el,i) => <li key={i}> {el} </li> )}
+                        region={person.organization_id.region_id.map((el,i) => <li key={i}> {el} </li> )}
                     />
                 </div>
                 ))}
@@ -77,9 +79,15 @@ const Person = (props) => (
         <Item>
             <Item.Content>
                 <Item.Header>{props.name}</Item.Header>
+                <Item.Meta>Organization</Item.Meta>
+                <Item.Description>{props.organization}</Item.Description>
                 <Item.Meta>Email</Item.Meta>
                 <Item.Description>{props.email}</Item.Description>
+                <Item.Meta>Causes</Item.Meta>
+                <Item.Description>{props.cause}</Item.Description>
+                <Item.Meta>Regions</Item.Meta>
+                <Item.Description>{props.region}</Item.Description>
             </Item.Content>
         </Item>
     </Item.Group>
-  )
+)

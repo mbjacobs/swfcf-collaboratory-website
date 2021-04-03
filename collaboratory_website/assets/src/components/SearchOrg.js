@@ -38,12 +38,12 @@ class SearchOrg extends Component {
 
     render() {
         return (
-            <div id="main">
+        <div id="main">
             <div class="example">
             <input
                     name="text"
                     type="text"
-                    placeholder="Search for an organization"
+                    placeholder="Search..."
                     onChange={event => this.handleOnChange(event)}
                     value={this.state.searchValue}
                 />

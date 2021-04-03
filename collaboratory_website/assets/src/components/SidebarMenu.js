@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Menu } from 'semantic-ui-react'
 import '../styles/SidebarMenu.css'
+// import Logo from '../collab-logo.jpg'
 import {
   BrowserRouter as Router,
   Switch,
@@ -15,7 +16,6 @@ import Profile from "./Profile";
 export default class SidebarMenu extends Component {
   // state = { activeItem: 'dashboard' }
   // handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-
   render() {
     // const { activeItem } = this.state
     return (
@@ -25,7 +25,8 @@ export default class SidebarMenu extends Component {
             id='site-title'
             name='site-title'
           >
-            <p>Website Title/Logo</p>
+            {/* <p>Website Title/Logo</p> */}
+            {/* <img src={Logo} alt="Logo" /> */}
           </Menu.Item>
           <Link to="/profile">
             <Menu.Item

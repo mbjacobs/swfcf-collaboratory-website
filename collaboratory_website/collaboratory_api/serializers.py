@@ -43,6 +43,11 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 	username = serializers.CharField(validators=[UniqueValidator(queryset=User.objects.all())])
 	password = serializers.CharField(min_length=8)
 	'''
+
+	# org = OrganizationSerializer(read_only=True)
+
+	organization_id = OrganizationSerializer(read_only=True)
+
 	class Meta:
 		model = User
 		fields = ('user_id', 'username', 'password', 'first_name', 'last_name', 'phone', 'email', 'registration_date', 'preferred_pronouns', 'role_id', 'organization_id')

@@ -70,7 +70,7 @@ class User(models.Model):
     registration_date = models.DateField(db_column="RegistrationDate", auto_now_add=True)
     preferred_pronouns = models.CharField(db_column='Pronouns', max_length=25, blank=True, null=True)
     role_id = models.ForeignKey(Role, on_delete=models.SET_NULL, db_column='RoleID', null=True)
-    organization_id = models.ForeignKey(Organization, db_column='OrganizationID', default='N/A', on_delete=models.SET_DEFAULT, blank=True, null=False)
+    organization_id = models.ForeignKey(Organization, db_column='OrganizationID', related_name="org", default='N/A', on_delete=models.SET_DEFAULT, blank=True, null=False)
     #profileimage =
 
     class Meta:
