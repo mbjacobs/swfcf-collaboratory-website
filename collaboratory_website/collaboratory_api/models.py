@@ -11,8 +11,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 class Region(models.Model):
-    region_id = models.IntegerField(db_column='RegionID', primary_key=True)  
-    name = models.CharField(db_column='Name', max_length=50)  
+    region_id = models.IntegerField(db_column='RegionID', primary_key=True)
+    name = models.CharField(db_column='Name', max_length=50)
 
     class Meta:
         # managed = False
@@ -64,7 +64,7 @@ class Organization(models.Model):
 
 class User(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    #user_id = models.IntegerField(db_column='UserID', primary_key=True)
+    #user_id = models.AutoField(db_column='UserID', primary_key=True)
     #username = models.CharField(db_column="Username", max_length=50)
     #password = models.CharField(db_column='Password', max_length=50, default="1234")
     #first_name = models.CharField(db_column='FirstName', max_length=50) 
@@ -74,8 +74,7 @@ class User(models.Model):
     registration_date = models.DateField(db_column="RegistrationDate", auto_now_add=True)
     #preferred_pronouns = models.CharField(db_column='Pronouns', max_length=25, blank=True, null=True)
     role_id = models.ForeignKey(Role, on_delete=models.SET_NULL, db_column='RoleID', null=True)
-    #organization_id = models.ForeignKey(Organization, db_column='OrganizationID', default='N/A', on_delete=models.SET_DEFAULT, blank=True, null=False) 
-    #profileimage =
+    organization_id = models.ForeignKey(Organization, db_column='OrganizationID', related_name="org", on_delete=models.SET_NULL, blank=True, null=True)
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
@@ -97,7 +96,7 @@ class Event(models.Model):
     description = models.TextField(db_column="Text")
     organization_id = models.ForeignKey(Organization, on_delete=models.SET_NULL, db_column='OrganizationID', null=True)
     user_id = models.ForeignKey(User, on_delete=models.SET_NULL, db_column='UserID', null=True)
-    
+
     class Meta:
         # managed = False
         db_table = 'Event'
@@ -106,7 +105,7 @@ class Channel(models.Model):
     channel_id = models.IntegerField(db_column='ChannelID', primary_key=True)
     name = models.CharField(db_column='Name', max_length=50)
     description = models.TextField(db_column='Text')
-    
+
     class Meta:
         # managed = False
         db_table = 'Channel'
@@ -117,8 +116,8 @@ class Announcement(models.Model):
     text = models.TextField(db_column='Text')
     date = models.DateTimeField(db_column="Date", auto_now_add=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserID')
-    event_id = models.ForeignKey(Event, on_delete=models.SET_NULL, db_column='EventID', blank=True, null=True)  
-    
+    event_id = models.ForeignKey(Event, on_delete=models.SET_NULL, db_column='EventID', blank=True, null=True)
+
     class Meta:
         # managed = False
         db_table = 'Announcement'
@@ -129,7 +128,7 @@ class Post(models.Model):
     text = models.TextField(db_column='Text')
     channel_id = models.ForeignKey(Channel, on_delete=models.CASCADE, db_column='ChannelID')
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserID')
-    
+
     class Meta:
         # managed = False
         db_table = 'Post'
@@ -138,7 +137,7 @@ class Organization_Region(models.Model):
     id = models.IntegerField(primary_key=True)
     organization_id = models.ForeignKey(Organization, on_delete=models.CASCADE, db_column='OrganizationID')
     region_id = models.ForeignKey(Region, on_delete=models.CASCADE, db_column='RegionID')
-    
+
     class Meta:
         # managed = False
         db_table = 'Organization-Region'
@@ -147,7 +146,7 @@ class Organization_Cause_Alignment(models.Model):
     id = models.IntegerField(primary_key=True)
     organization_id = models.ForeignKey(Organization, on_delete=models.CASCADE, db_column='OrganizationID')
     cause_id = models.ForeignKey(Cause, on_delete=models.CASCADE, db_column='CauseID')
-    
+
     class Meta:
         # managed = False
         db_table = 'Organization-Cause-Alignment'
@@ -156,10 +155,10 @@ class User_Event_Attendance(models.Model):
     id = models.IntegerField(primary_key=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserID')
     event_id = models.ForeignKey(Event, on_delete=models.CASCADE, db_column='EventID')
-    
+
     class Meta:
         # managed = False
-        db_table = 'User-Event-Attendance'     
+        db_table = 'User-Event-Attendance'
 
 # class AuthGroup(models.Model):
 #     name = models.CharField(unique=True, max_length=150)
