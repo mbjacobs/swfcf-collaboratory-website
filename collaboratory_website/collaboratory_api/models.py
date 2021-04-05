@@ -6,6 +6,9 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class Region(models.Model):
     region_id = models.IntegerField(db_column='RegionID', primary_key=True)
@@ -60,18 +63,27 @@ class Organization(models.Model):
         db_table = 'Organization'
 
 class User(models.Model):
-    user_id = models.IntegerField(db_column='UserID', primary_key=True)
-    username = models.CharField(db_column="Username", max_length=50)
-    password = models.CharField(db_column='Password', max_length=50, default="1234")
-    first_name = models.CharField(db_column='FirstName', max_length=50) 
-    last_name =  models.CharField(db_column='LastName', max_length=50)
-    phone = models.CharField(db_column='Phone', max_length=14)
-    email =  models.EmailField(default="email@domain.com")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    #user_id = models.AutoField(db_column='UserID', primary_key=True)
+    #username = models.CharField(db_column="Username", max_length=50)
+    #password = models.CharField(db_column='Password', max_length=50, default="1234")
+    #first_name = models.CharField(db_column='FirstName', max_length=50) 
+    #last_name =  models.CharField(db_column='LastName', max_length=50)
+    phone = models.CharField(db_column='Phone', max_length=14, null=True)
+    #email =  models.EmailField(default="email@domain.com")
     registration_date = models.DateField(db_column="RegistrationDate", auto_now_add=True)
     preferred_pronouns = models.CharField(db_column='Pronouns', max_length=25, blank=True, null=True)
     role_id = models.ForeignKey(Role, on_delete=models.SET_NULL, db_column='RoleID', null=True)
-    organization_id = models.ForeignKey(Organization, db_column='OrganizationID', related_name="org", default='N/A', on_delete=models.SET_DEFAULT, blank=True, null=False)
-    #profileimage =
+    organization_id = models.ForeignKey(Organization, db_column='OrganizationID', related_name="org", on_delete=models.SET_NULL, blank=True, null=True)
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            User.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.user.save()
 
     class Meta:
         # managed = False

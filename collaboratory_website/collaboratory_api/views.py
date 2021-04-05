@@ -164,6 +164,19 @@ def users_detail(request, pk):
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
+## Current User API View ##
+@api_view(['GET'])
+def current_user(request):
+    user = request.user
+    return Response({
+        'id': user.id,
+        'username': user.username,
+        'first name': user.first_name,
+        'last name': user.last_name,
+        'email': user.email,
+    })
+
 ## Events API View ##
 @api_view(['GET', 'POST'])
 def events_list(request):
