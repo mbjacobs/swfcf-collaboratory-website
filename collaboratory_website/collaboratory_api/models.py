@@ -69,10 +69,10 @@ class User(models.Model):
     #password = models.CharField(db_column='Password', max_length=50, default="1234")
     #first_name = models.CharField(db_column='FirstName', max_length=50) 
     #last_name =  models.CharField(db_column='LastName', max_length=50)
-    #phone = models.CharField(db_column='Phone', max_length=14)
+    phone = models.CharField(db_column='Phone', max_length=14, null=True)
     #email =  models.EmailField(default="email@domain.com")
     registration_date = models.DateField(db_column="RegistrationDate", auto_now_add=True)
-    #preferred_pronouns = models.CharField(db_column='Pronouns', max_length=25, blank=True, null=True)
+    preferred_pronouns = models.CharField(db_column='Pronouns', max_length=25, blank=True, null=True)
     role_id = models.ForeignKey(Role, on_delete=models.SET_NULL, db_column='RoleID', null=True)
     organization_id = models.ForeignKey(Organization, db_column='OrganizationID', related_name="org", on_delete=models.SET_NULL, blank=True, null=True)
 
