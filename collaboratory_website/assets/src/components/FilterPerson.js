@@ -40,33 +40,44 @@ class FilterPerson extends Component {
     };
 
     filterPersons = (arr) => {
-        console.log('filters are running');
+        let full_profiles = [];
+
+        // Check if a full profile exists, meaning they are attached to an org
+        for (let no_nulls of arr) {
+            if (no_nulls.organization_id != null)  {
+                full_profiles.push(no_nulls)
+            };
+        }
+
+        // Continue with the rest of the loop
         let new_persons = [];
-            for (let person of arr) {
-                if ( (this.state.searchCauseValue == "ALL") && (this.state.searchRegionValue == "ALL") ) {
-                    console.log('both ALL')
-                    return arr
-                };
 
-                if ( (this.state.searchCauseValue == "ALL") || (this.state.searchRegionValue == "ALL")) {
-                    console.log('one ALL');
+            for (let person of full_profiles) {
 
-                    if (this.state.searchRegionValue == "ALL") {
-                        if ( person.organization_id.cause_id.includes(this.state.searchCauseValue)) {
-                            console.log('region ALL')
-                            new_persons.push(person)
-                    }};
-                    if (this.state.searchCauseValue == "ALL") {
-                        console.log('cause ALL')
-                        if ( person.organization_id.region_id.includes(this.state.searchRegionValue)) {
-                            new_persons.push(person)
-                    }};
-                };
-                if ((person.organization_id.region_id.includes(this.state.searchRegionValue)) && ( person.organization_id.cause_id.includes(this.state.searchCauseValue))) {
-                    console.log('both here')
-                    new_persons.push(person)
+                    if ( (this.state.searchCauseValue == "ALL") && (this.state.searchRegionValue == "ALL") ) {
+                        console.log('both ALL')
+                        return full_profiles
+                    };
+
+                    if ( (this.state.searchCauseValue == "ALL") || (this.state.searchRegionValue == "ALL")) {
+                        console.log('one ALL');
+
+                        if (this.state.searchRegionValue == "ALL") {
+                            if ( person.organization_id.cause_id.includes(this.state.searchCauseValue)) {
+                                console.log('region ALL')
+                                new_persons.push(person)
+                        }};
+                        if (this.state.searchCauseValue == "ALL") {
+                            console.log('cause ALL')
+                            if ( person.organization_id.region_id.includes(this.state.searchRegionValue)) {
+                                new_persons.push(person)
+                        }};
+                    };
+                    if ((person.organization_id.region_id.includes(this.state.searchRegionValue)) && ( person.organization_id.cause_id.includes(this.state.searchCauseValue))) {
+                        console.log('both here')
+                        new_persons.push(person)
+                    }
                 }
-            }
     return new_persons
     };
 
@@ -74,7 +85,6 @@ class FilterPerson extends Component {
         var searchUrl = 'http://localhost:8000/users/';
         fetch(searchUrl)
         .then(response => {
-            console.log(response)
             return response.json();
         })
         .then(jsonData => {
@@ -125,9 +135,9 @@ class FilterPerson extends Component {
                 <div class = "item-card" key={x}>
                     <Person
                         key={x}
-                        name={person.first_name + ' ' + person.last_name}
+                        name={person.user.first_name + ' ' + person.user.last_name}
                         organization={person.organization_id.name}
-                        email={person.email}
+                        email={person.user.email}
                         cause={person.organization_id.cause_id.map((el,i) => <li key={i}> {el} </li> )}
                         region={person.organization_id.region_id.map((el,i) => <li key={i}> {el} </li> )}
                     />

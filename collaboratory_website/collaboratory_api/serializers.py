@@ -1,7 +1,7 @@
 #serializers.py
 
 from rest_framework import serializers
-from .models import Region, Role, Cause, User, Organization, Event, Channel, Announcement, Post, Organization_Region, Organization_Cause_Alignment, User_Event_Attendance
+from .models import Region, Role, Cause, User, Organization, Event, Channel, Post, Organization_Region, Organization_Cause_Alignment, User_Event_Attendance, Announcement
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.models import User as auth_user
 
@@ -50,7 +50,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = User
 		#fields = ('user_id', 'username', 'password', 'first_name', 'last_name', 'phone', 'email', 'registration_date', 'preferred_pronouns', 'role_id', 'organization_id')
-		fields = ('user_id', 'user', 'registration_date', 'role_id', 'organization_id')
+		fields = ( 'user', 'phone', 'preferred_pronouns', 'registration_date', 'role_id', 'organization_id')
 
 '''
 class UserSerializer(serializers.HyperlinkedModelSerializer):

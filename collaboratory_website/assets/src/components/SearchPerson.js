@@ -22,17 +22,55 @@ class SearchPerson extends Component {
     };
 
     handleSearch = () => {
-        this.makeApiCall(this.state.searchValue);
+        this.makeApiCall();
     };
 
-    makeApiCall = searchInput => {
-        var searchUrl = `http://localhost:8000/personsearch/?search=${searchInput}`;
+    searchPersons = (arr) => {
+        var searchString = this.state.searchValue.toLowerCase().split(" ")
+
+        let full_profiles = [];
+
+        // Check if a full profile exists, meaning they have entered a full name for their profile
+        for (let no_nulls of arr) {
+            // if ((no_nulls.user.first_name != "" || no_nulls.user.last_name != "") && (no_nulls.organization_id != null) ) 
+            if ((no_nulls.organization_id != null) )  {
+                full_profiles.push(no_nulls)
+            };
+        }
+        // Continue with the rest of the loop
+        let new_persons = [];
+
+            for (let person of full_profiles) {
+
+                for (var i=0; i< searchString.length ; i++) {
+                    console.log('searching on', searchString[i])
+
+                    if ( person.user.first_name.toLowerCase().includes(searchString[i])) {
+                        if (new_persons.includes(person)) {
+                            continue;
+                        };
+                        new_persons.push(person)
+                    };
+                    if ( person.user.last_name.toLowerCase().includes(searchString[i])) {
+                        if (new_persons.includes(person)) {
+                            continue;
+                        };
+                        new_persons.push(person)
+                    };
+                }
+            }
+        return new_persons
+    };
+
+    makeApiCall = () => {
+        var searchUrl = 'http://localhost:8000/users/';
         fetch(searchUrl)
         .then(response => {
             return response.json();
         })
         .then(jsonData => {
-            this.setState({ persons: jsonData });
+            var data = this.searchPersons(jsonData)
+            this.setState({ persons: data });
         });
     };
 
@@ -55,9 +93,9 @@ class SearchPerson extends Component {
                 <div class = "item-card" key={x}>
                     <Person
                         key={x}
-                        name={person.first_name + ' ' + person.last_name}
+                        name={person.user.first_name + ' ' + person.user.last_name}
                         organization={person.organization_id.name}
-                        email={person.email}
+                        email={person.user.email}
                         cause={person.organization_id.cause_id.map((el,i) => <li key={i}> {el} </li> )}
                         region={person.organization_id.region_id.map((el,i) => <li key={i}> {el} </li> )}
                     />
