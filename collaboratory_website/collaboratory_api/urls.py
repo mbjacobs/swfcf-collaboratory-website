@@ -44,6 +44,7 @@ urlpatterns = [
     re_path(r'^users/$', views.users_list),
     re_path(r'^users/([0-9])$', views.users_detail),
     re_path(r'^events/$', views.events_list),
+    re_path(r'^post/$', views.posts_list),
     # this route catches the "naked" URL with no path specified. you can link to it in most places
     path(r'dashboard/', views.MainView.as_view(), name='react_app'),  
     # this route catches any url below the main one, so the path can be passed to the front end
