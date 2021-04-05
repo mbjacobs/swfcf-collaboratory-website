@@ -39,10 +39,6 @@ class Channels extends React.Component {
         axios.get(CHANNELS_API_URL).then(res => this.setState({ channels: res.data }));
     };
 
-    // getPosts = () => {
-    //     axios.get(POSTS_API_URL).then(res => this.setState({ posts: res.data }));
-    // };
-
     handleClick = (e, titleProps) => {
         const { index } = titleProps
         const { activeIndex } = this.state

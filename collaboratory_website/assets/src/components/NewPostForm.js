@@ -7,15 +7,18 @@ import { POSTS_API_URL } from "../constants";
 class NewPostForm extends React.Component {
     state = {
         title: "",
-        // channel:"",
-        // user:"",
         text: "",
+        channel: "",
+        user: "",
     };
 
     onChange = e => {
-        this.setState({ [e.target.title]: e.target.value });
+        this.setState({ [e.target.name]: e.target.value });
     };
 
+    // handleClick() {
+    //     this.setState(state => ({ num: state.num + 1 }));
+    // }
     createPost = e => {
         e.preventDefault();
         axios.post(POSTS_API_URL, this.state).then(() => {
@@ -36,7 +39,16 @@ class NewPostForm extends React.Component {
                         placeholder='Enter the post title.'
                     />
                 </Form.Field>
-                {/* <Form.Field>
+                <Form.Field>
+                    <label>Text</label>
+                    <input
+                        type="text"
+                        name="text"
+                        onChange={this.onChange}
+                        placeholder='Enter the content for your post.'
+                    />
+                </Form.Field>
+                <Form.Field>
                     <label>Channel</label>
                     <input
                         type="text"
@@ -52,15 +64,6 @@ class NewPostForm extends React.Component {
                         name="user"
                         onChange={this.onChange}
                         placeholder='Enter the User ID.'
-                    />
-                </Form.Field> */}
-                <Form.Field>
-                    <label>Text</label>
-                    <input
-                        type="text"
-                        name="description"
-                        onChange={this.onChange}
-                        placeholder='Enter the content for your post.'
                     />
                 </Form.Field>
                 <Button type='submit'>Submit</Button>
