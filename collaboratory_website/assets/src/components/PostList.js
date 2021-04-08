@@ -14,9 +14,6 @@ class PostList extends Component {
             posts: [],
         };
     }
-    // state = {
-    //     posts: [],
-    //   };
 
       componentDidMount() {
         this.resetState();
@@ -59,9 +56,10 @@ const Post = (props) => {
             <div class="content">
                 <div class="header">{props.title}</div>
                 <div class="description">{props.text}</div>
-                {/* <div class="int"><strong>Channel ID: </strong>{props.channel_id}</div> */}
-                {/* <div class="int"><strong>Posted by (User ID): </strong>{props.user_id}</div> */}
-                <div class="meta"><strong>Channel: </strong>{props.channel_id} <strong>Posted by: </strong>{props.user_id}</div>
+                <div class="meta">
+                    <strong>Channel:</strong>{props.channel_id.name}
+                    <strong> Posted by: </strong>{props.user_id.user.first_name + ' ' + props.user_id.user.last_name}
+                </div>
             </div>
         </div>
     );

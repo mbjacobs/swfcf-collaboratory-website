@@ -16,9 +16,6 @@ class NewPostForm extends React.Component {
         this.setState({ [e.target.name]: e.target.value });
     };
 
-    // handleClick() {
-    //     this.setState(state => ({ num: state.num + 1 }));
-    // }
     createPost = e => {
         e.preventDefault();
         axios.post(POSTS_API_URL, this.state).then(() => {

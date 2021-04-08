@@ -46,7 +46,7 @@ class Organization(models.Model):
     state = models.CharField(db_column='State', max_length=2)
     zip = models.CharField(db_column='Zip', max_length = 20, blank=True, null=True)
     country = models.CharField(db_column='Country', max_length=50)
-    phone = models.CharField(db_column='Phone', max_length=45)
+    phone = models.CharField(db_column='Phone', max_length=45, null=True)
     mission = models.TextField(db_column='MissionStmt')
     email =  models.EmailField(blank=True, null=True)
     website = models.URLField(db_column='Website', max_length=200, blank=True, null=True)

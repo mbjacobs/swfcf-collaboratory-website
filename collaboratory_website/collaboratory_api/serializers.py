@@ -46,7 +46,7 @@ class AuthUserSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.HyperlinkedModelSerializer):
 	user = AuthUserSerializer(required=True)
 	organization_id = OrganizationSerializer(read_only=True)
-	
+
 	class Meta:
 		model = User
 		#fields = ('user_id', 'username', 'password', 'first_name', 'last_name', 'phone', 'email', 'registration_date', 'preferred_pronouns', 'role_id', 'organization_id')
@@ -72,6 +72,7 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
 		fields = ('name', 'date', 'description', 'organization_id', 'user_id')
 
 class ChannelSerializer(serializers.HyperlinkedModelSerializer):
+	# user_id = UserSerializer(read_only=True)
 	class Meta:
 		model = Channel
 		fields = ('channel_id', 'name', 'description')
@@ -82,6 +83,10 @@ class AnnouncementSerializer(serializers.HyperlinkedModelSerializer):
 		fields = ('announcement_id', 'title', 'text', 'date', 'user_id', 'event_id')
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):
+	# user = AuthUserSerializer(required=True)
+	channel_id = ChannelSerializer(read_only=True)
+	user_id = UserSerializer(read_only=True)
+
 	class Meta:
 		model = Post
 		fields = ('title', 'text', 'channel_id', 'user_id')
