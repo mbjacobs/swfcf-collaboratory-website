@@ -84,7 +84,7 @@ class AnnouncementSerializer(serializers.HyperlinkedModelSerializer):
 class PostSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Post
-		fields = ('post_id', 'title', 'text', 'channel_id', 'user_id')
+		fields = ('title', 'text', 'channel_id', 'user_id')
 
 class OrganizationRegionSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:

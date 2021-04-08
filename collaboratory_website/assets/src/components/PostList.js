@@ -8,32 +8,41 @@ import {POSTS_API_URL} from "../constants";
 
 class PostList extends Component {
 
-    state = {
-        posts: [],
-      };
-    
+    constructor(props) {
+        super(props);
+        this.state = {
+            posts: [],
+        };
+    }
+    // state = {
+    //     posts: [],
+    //   };
+
       componentDidMount() {
         this.resetState();
       }
-    
+
       getPosts = () => {
         axios.get(POSTS_API_URL).then(res => this.setState({ posts: res.data }));
       };
-    
+
       resetState = () => {
         this.getPosts();
       };
 
     render() {
+        console.log(this.state.posts)
         return (
             <Container style={{ marginTop: "20px" }}>
-            {!this.state.posts || this.state.posts.length <= 0 ? (<p>No posts yet!</p>) : 
+            {!this.state.posts || this.state.posts.length <= 0 ? (<p>No posts yet!</p>) :
             (
                 this.state.posts.map(post => (
                 <Post
                     key={post.post_id}
-                    title={post.name}
+                    title={post.title}
                     text={post.text}
+                    channel_id={post.channel_id}
+                    user_id={post.user_id}
                   />
                 ))
             )}
@@ -49,8 +58,10 @@ const Post = (props) => {
         <div class="ui card fluid">
             <div class="content">
                 <div class="header">{props.title}</div>
-                <div class="meta"><strong>Channel:</strong>{props.channel_id} NAME <strong>Posted by:</strong>{props.user_id} USERNAME</div>
                 <div class="description">{props.text}</div>
+                {/* <div class="int"><strong>Channel ID: </strong>{props.channel_id}</div> */}
+                {/* <div class="int"><strong>Posted by (User ID): </strong>{props.user_id}</div> */}
+                <div class="meta"><strong>Channel: </strong>{props.channel_id} <strong>Posted by: </strong>{props.user_id}</div>
             </div>
         </div>
     );
