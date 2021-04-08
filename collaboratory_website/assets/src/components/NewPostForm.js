@@ -1,31 +1,24 @@
 import React from "react";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-
+import { Form, Input, TextArea, Button, Select } from 'semantic-ui-react'
 import axios from "axios";
 
 import { POSTS_API_URL } from "../constants";
 
 class NewPostForm extends React.Component {
     state = {
-        post_id: 0,
         title: "",
         text: "",
-        channel_id: 0,
-        user_id: 0,
+        channel: "",
+        user: "",
     };
-    /*
-      componentDidMount() {
-        if (this.props.student) {
-          const { pk, name, document, email, phone } = this.props.student;
-          this.setState({ pk, name, document, email, phone });
-        }
-      }
-    */
+
     onChange = e => {
         this.setState({ [e.target.name]: e.target.value });
     };
 
-
+    // handleClick() {
+    //     this.setState(state => ({ num: state.num + 1 }));
+    // }
     createPost = e => {
         e.preventDefault();
         axios.post(POSTS_API_URL, this.state).then(() => {
@@ -33,41 +26,47 @@ class NewPostForm extends React.Component {
             this.props.toggle();
         });
     };
-    /*
-      editStudent = e => {
-        e.preventDefault();
-        axios.put(API_URL + this.state.pk, this.state).then(() => {
-          this.props.resetState();
-          this.props.toggle();
-        });
-      };
-    */
-    defaultIfEmpty = value => {
-        return value === "" ? "" : value;
-    };
 
     render() {
         return (
             <Form onSubmit={this.createPost}>
-                <FormGroup>
-                    <Label for="title">Post Title</Label>
-                    <Input
+                <Form.Field>
+                    <label>Title</label>
+                    <input
                         type="text"
                         name="title"
                         onChange={this.onChange}
-                        value={this.defaultIfEmpty(this.state.title)}
+                        placeholder='Enter the post title.'
                     />
-                </FormGroup>
-                <FormGroup>
-                    <Label for="text">Post Text</Label>
-                    <Input
+                </Form.Field>
+                <Form.Field>
+                    <label>Text</label>
+                    <input
                         type="text"
                         name="text"
                         onChange={this.onChange}
-                        value={this.defaultIfEmpty(this.state.text)}
+                        placeholder='Enter the content for your post.'
                     />
-                </FormGroup>
-                <Button>Create Post</Button>
+                </Form.Field>
+                <Form.Field>
+                    <label>Channel</label>
+                    <input
+                        type="text"
+                        name="channel"
+                        onChange={this.onChange}
+                        placeholder='Enter the Channel ID.'
+                    />
+                </Form.Field>
+                <Form.Field>
+                    <label>User</label>
+                    <input
+                        type="text"
+                        name="user"
+                        onChange={this.onChange}
+                        placeholder='Enter the User ID.'
+                    />
+                </Form.Field>
+                <Button type='submit'>Submit</Button>
             </Form>
         );
     }
