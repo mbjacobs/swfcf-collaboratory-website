@@ -155,3 +155,7 @@ STATICFILES_DIRS = [
 #login & logout
 LOGIN_REDIRECT_URL = "react_app"
 LOGOUT_REDIRECT_URL = "landing"
+
+# email testing server
+EMAIL_HOST = "localhost"
+EMAIL_PORT = 1025
