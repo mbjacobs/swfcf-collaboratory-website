@@ -46,9 +46,11 @@ export default class SidebarMenu extends Component {
     return (
       <Router basename='/dashboard'>
         <Menu inverted vertical menu>
-          <Menu.Item
+          <Menu.Item as='h2'
             id='site-title'
-            name='site-title'
+            // name='site-title'
+            name='Collaboratory Online'
+
           >
             {/* <p>Website Title/Logo</p> */}
             {/* <img src={Logo} alt="Logo" /> */}
@@ -68,12 +70,14 @@ export default class SidebarMenu extends Component {
           </Link>
           <Link to="/channels">
             <Menu.Item
-            name='channels'
+            // name='channels'
+            name='Discussions'
             />
           </Link>
           <Link to="/events">
             <Menu.Item
-              name='events'
+              // name='events'
+              name='Socials and Events'
             />
           </Link>
           <Link to="/directory">
