@@ -64,13 +64,7 @@ class Organization(models.Model):
 
 class User(models.Model):
     user = models.OneToOneField(User, db_column='UserID', on_delete=models.CASCADE, primary_key=True)
-    # user_id = models.AutoField(db_column='UserID', primary_key=True)
-    #username = models.CharField(db_column="Username", max_length=50)
-    #password = models.CharField(db_column='Password', max_length=50, default="1234")
-    #first_name = models.CharField(db_column='FirstName', max_length=50) 
-    #last_name =  models.CharField(db_column='LastName', max_length=50)
     phone = models.CharField(db_column='Phone', max_length=14, null=True)
-    #email =  models.EmailField(default="email@domain.com")
     registration_date = models.DateField(db_column="RegistrationDate", auto_now_add=True)
     preferred_pronouns = models.CharField(db_column='Pronouns', max_length=25, blank=True, null=True)
     role_id = models.ForeignKey(Role, on_delete=models.SET_NULL, db_column='RoleID', null=True)

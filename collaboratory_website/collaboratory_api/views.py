@@ -269,9 +269,6 @@ def posts_detail(request, pk):
 
 
 # Registration
-#def dashboard(request):
-#    return render(request, "users/dashboard.html")
-
 def register(request):
     if request.method == "GET":
         return render(
