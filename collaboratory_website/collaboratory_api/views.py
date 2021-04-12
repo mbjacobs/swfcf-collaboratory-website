@@ -284,6 +284,7 @@ def register(request):
             user = form.save()
             login(request, user)
             return redirect(reverse("react_app"))
+    return render(request, 'users/register.html',{"form": form})
 
 #login
 def landing(request):
