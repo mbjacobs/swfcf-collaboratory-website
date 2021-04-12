@@ -49,23 +49,8 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 	
 	class Meta:
 		model = User
-		#fields = ('user_id', 'username', 'password', 'first_name', 'last_name', 'phone', 'email', 'registration_date', 'preferred_pronouns', 'role_id', 'organization_id')
 		fields = ( 'user', 'phone', 'preferred_pronouns', 'registration_date', 'role_id', 'organization_id')
 
-'''
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-	#email = serializers.EmailField(required=True, validators=[UniqueValidator(queryset=User.objects.all())])
-	#username = serializers.CharField(validators=[UniqueValidator(queryset=User.objects.all())])
-	#password = serializers.CharField(min_length=8)
-
-	# org = OrganizationSerializer(read_only=True)
-
-	organization_id = OrganizationSerializer(read_only=True)
-
-	class Meta:
-		model = User
-		fields = ('username', 'password', 'first_name', 'last_name', 'phone', 'email', 'registration_date', 'preferred_pronouns', 'role_id', 'organization_id')
-'''
 class EventSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Event
