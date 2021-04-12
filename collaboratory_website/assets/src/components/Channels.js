@@ -11,7 +11,7 @@ import "../styles/Page.css";
 import NewPostModal from "./NewPostModal";
 import axios from "axios";
 
-import { CHANNELS_API_URL, POSTS_API_URL } from "../constants";
+import { CHANNELS_API_URL } from "../constants";
 import PostList from "./PostList";
 
 class Channels extends React.Component {
@@ -56,7 +56,6 @@ class Channels extends React.Component {
         // this.getPosts();
     };
     render() {
-        console.log(this.state.channels)
         const { activeIndex } = this.state;
         return (
             <Segment class="body-content">
@@ -96,20 +95,6 @@ class Channels extends React.Component {
                     resetState={this.resetState}
                 />
                 <PostList></PostList>
-                {/* <Container style={{ marginTop: "20px" }}>
-                    {!this.state.posts || this.state.posts.length <= 0 ? (<p>No posts yet!</p>) :
-                        (
-                            this.state.posts.map(post => (
-                                <Post
-                                    key={post.post_id}
-                                    title={post.title}
-                                    // channel={post.channel_id}
-                                    // user={post.user_id}
-                                    text={post.text}
-                                />
-                            ))
-                        )}
-                </Container> */}
             </Segment>
         );
     }
@@ -122,14 +107,3 @@ const Channel = (props) => {
         <Button>{props.name}</Button>
     );
 }
-// const Post = (props) => {
-//     return (
-//         <div class="ui card fluid">
-//             <div class="content">
-//                 <div class="header">{props.title}</div>
-//                 {/* <div class="meta"><strong>Channel:</strong>{props.channel_id} CHANNEL <strong>Posted by:</strong>{props.user_id} USERNAME</div> */}
-//                 <div class="description">{props.text}</div>
-//             </div>
-//         </div>
-//     );
-// }
