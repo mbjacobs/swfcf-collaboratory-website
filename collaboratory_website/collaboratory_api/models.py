@@ -63,8 +63,8 @@ class Organization(models.Model):
         db_table = 'Organization'
 
 class User(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    #user_id = models.AutoField(db_column='UserID', primary_key=True)
+    user = models.OneToOneField(User, db_column='UserID', on_delete=models.CASCADE, primary_key=True)
+    # user_id = models.AutoField(db_column='UserID', primary_key=True)
     #username = models.CharField(db_column="Username", max_length=50)
     #password = models.CharField(db_column='Password', max_length=50, default="1234")
     #first_name = models.CharField(db_column='FirstName', max_length=50) 
@@ -115,7 +115,8 @@ class Announcement(models.Model):
     title = models.CharField(db_column='Title', max_length=50)
     text = models.TextField(db_column='Text')
     date = models.DateTimeField(db_column="Date", auto_now_add=True)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserID')
+    user_id = models.ForeignKey(User, on_delete=models.SET_NULL, db_column='UserID', null=True)
+    # user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserID')
     event_id = models.ForeignKey(Event, on_delete=models.SET_NULL, db_column='EventID', blank=True, null=True)
 
     class Meta:
@@ -123,12 +124,12 @@ class Announcement(models.Model):
         db_table = 'Announcement'
 
 class Post(models.Model):
-    post_id = models.IntegerField(db_column='PostID', primary_key=True)
+    post_id = models.AutoField(db_column='PostID', primary_key=True)
     title = models.CharField(db_column='Title', max_length=50)
     text = models.TextField(db_column='Text')
-    channel_id = models.ForeignKey(Channel, on_delete=models.CASCADE, db_column='ChannelID')
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserID')
-
+    channel_id = models.ForeignKey(Channel, on_delete=models.CASCADE, db_column='ChannelID', null=True)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserID', null=True)
+    
     class Meta:
         # managed = False
         db_table = 'Post'
