@@ -1,52 +1,48 @@
 import React, { Component, Fragment } from "react";
-import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
+import { Button, Icon, Modal } from 'semantic-ui-react';
 import NewPostForm from "./NewPostForm";
 
 class NewPostModal extends Component {
     state = {
-        modal: false
+        open: false
     };
 
-    toggle = () => {
+    setOpen = () => {
         this.setState(previous => ({
-            modal: !previous.modal
+            open: !previous.open
         }));
     };
 
     render() {
         const create = this.props.create;
-
-        var title = "Write Your Post";
-        var button = <Button onClick={this.toggle}>Create New Post</Button>;
-
         if (create) {
-            title = "Write Your Post";
-
-            button = (
+            var button = (
                 <Button
                     color="primary"
                     className="float-right"
                     onClick={this.toggle}
-                    style={{ minWidth: "200px" }}
+                    style={{ minWidth: "150px", marginLeft: "61vw" }}
                 >
-                    Create Post
+                    Write a Post   <Icon name="plus circle"></Icon>
                 </Button>
             );
         }
 
         return (
             <Fragment>
-                {button}
-                <Modal isOpen={this.state.modal} toggle={this.toggle}>
-                    <ModalHeader toggle={this.toggle}>{title}</ModalHeader>
-
-                    <ModalBody>
-                        <NewPostForm
-                            resetState={this.props.resetState}
-                            toggle={this.toggle}
-                            post={this.props.post}
-                        />
-                    </ModalBody>
+                <Modal
+                    onClose={() => this.setOpen(false)}
+                    onOpen={() => this.setOpen(true)}
+                    open={this.state.open}
+                    trigger={button}
+                >
+                <Modal.Header>Create a New Post</Modal.Header>
+                <Modal.Content>
+                    <NewPostForm
+                        resetState={this.props.resetState}
+                        toggle={this.setOpen}
+                    />
+                </Modal.Content>
                 </Modal>
             </Fragment>
         );

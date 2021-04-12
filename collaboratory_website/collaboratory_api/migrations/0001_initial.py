@@ -119,11 +119,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Post',
             fields=[
-                ('post_id', models.IntegerField(db_column='PostID', primary_key=True, serialize=False)),
+                ('post_id', models.AutoField(db_column='PostID', primary_key=True, serialize=False)),
                 ('title', models.CharField(db_column='Title', max_length=50)),
                 ('text', models.TextField(db_column='Text')),
-                ('channel_id', models.ForeignKey(db_column='ChannelID', on_delete=django.db.models.deletion.CASCADE, to='collaboratory_api.channel')),
-                ('user_id', models.ForeignKey(db_column='UserID', on_delete=django.db.models.deletion.CASCADE, to='collaboratory_api.user')),
+                ('channel_id', models.ForeignKey(db_column='ChannelID', null=True, on_delete=django.db.models.deletion.CASCADE, to='collaboratory_api.channel')),
+                ('user_id', models.ForeignKey(db_column='UserID', null=True, on_delete=django.db.models.deletion.CASCADE, to='collaboratory_api.user')),
             ],
             options={
                 'db_table': 'Post',
