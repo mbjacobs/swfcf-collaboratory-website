@@ -110,6 +110,7 @@ class Channel(models.Model):
         # managed = False
         db_table = 'Channel'
 
+#TODO: Delete, unused
 class Announcement(models.Model):
     announcement_id = models.IntegerField(db_column='AnnouncementID', primary_key=True)
     title = models.CharField(db_column='Title', max_length=50)
@@ -134,6 +135,7 @@ class Post(models.Model):
         # managed = False
         db_table = 'Post'
 
+#TODO: Delete, unused
 class Organization_Region(models.Model):
     id = models.IntegerField(primary_key=True)
     organization_id = models.ForeignKey(Organization, on_delete=models.CASCADE, db_column='OrganizationID')
@@ -143,6 +145,7 @@ class Organization_Region(models.Model):
         # managed = False
         db_table = 'Organization-Region'
 
+#TODO: Delete, unused
 class Organization_Cause_Alignment(models.Model):
     id = models.IntegerField(primary_key=True)
     organization_id = models.ForeignKey(Organization, on_delete=models.CASCADE, db_column='OrganizationID')
@@ -152,6 +155,7 @@ class Organization_Cause_Alignment(models.Model):
         # managed = False
         db_table = 'Organization-Cause-Alignment'
 
+#TODO: Delete, unused
 class User_Event_Attendance(models.Model):
     id = models.IntegerField(primary_key=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserID')
@@ -161,6 +165,7 @@ class User_Event_Attendance(models.Model):
         # managed = False
         db_table = 'User-Event-Attendance'
 
+#TODO: Anyone know why these are commented out? Or why they exist here in the first place?
 # class AuthGroup(models.Model):
 #     name = models.CharField(unique=True, max_length=150)
 

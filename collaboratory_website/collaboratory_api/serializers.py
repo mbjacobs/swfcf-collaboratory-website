@@ -67,15 +67,18 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 		fields = ('username', 'password', 'first_name', 'last_name', 'phone', 'email', 'registration_date', 'preferred_pronouns', 'role_id', 'organization_id')
 '''
 class EventSerializer(serializers.HyperlinkedModelSerializer):
+	user_id = AuthUserSerializer(required=True)
+
 	class Meta:
 		model = Event
-		fields = ('name', 'date', 'description', 'organization_id', 'user_id')
+		fields = ('name', 'date', 'description', 'user_id')
 
 class ChannelSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Channel
 		fields = ('channel_id', 'name', 'description')
 
+#TODO: Delete, unused
 class AnnouncementSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Announcement
@@ -86,16 +89,19 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
 		model = Post
 		fields = ('title', 'text', 'channel_id', 'user_id')
 
+#TODO: Delete, unused
 class OrganizationRegionSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Organization_Region
 		fields = ('id', 'organization_id', 'region_id')
 
+#TODO: Delete, unused
 class OrganizationCauseSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Organization_Cause_Alignment
 		fields = ('id', 'organization_id', 'cause_id')
 
+#TODO: Delete, unused
 class UserEventSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = User_Event_Attendance
