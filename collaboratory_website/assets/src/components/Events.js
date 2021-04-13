@@ -17,13 +17,20 @@ class Events extends React.Component {
     super(props);
     this.state = {
       events: [],
+      buttonVal: ""
     };
+    this.logButtonVal = this.logButtonVal.bind(this)
     // this.formatDates()
   }
 
   componentDidMount() {
     this.resetState();
   }
+
+  logButtonVal = (e) => {
+    this.setState({ buttonVal: e.target.value });
+    console.log(e.target.value);
+};
 
   getEvents= () => {
     axios.get(EVENTS_API_URL).then(res => this.setState({ events: res.data }));
@@ -71,15 +78,15 @@ class Events extends React.Component {
                       <h1>Socials and Events</h1>
                   </Header>
                   <Container id="event-filters-container">
-                      <Button size="huge">Upcoming</Button>
-                      <Button size="huge">Past Events</Button>
+                      <Button onClick={this.logButtonVal} size="medium" value="upcoming" className={(this.state.buttonVal == "upcoming") ? "ui black button" : "ui button"} >Upcoming</Button>
+                      <Button onClick={this.logButtonVal} size="medium" value="past" className={(this.state.buttonVal != "upcoming") ? "ui black button" : "ui button"}>Past Events</Button>
                   </Container>
                   <NewEventModal
                         create={true}
                         resetState={this.resetState}
                       />
                   <Container style={{ marginTop: "20px" }}>
-                    {!this.state.events || this.state.events.length <= 0 ? (<p>No events yet!</p>) : 
+                    {!this.state.events || this.state.events.length <= 0 ? (<p>No events yet!</p>) :
                     (
                         this.state.events.map(event => (
                           <Event

@@ -57,6 +57,7 @@ class SearchOrg extends Component {
                         key={organization.org_id}
                         name={organization.name}
                         mission={organization.mission}
+                        website={organization.website}
                         cause={organization.cause_id.map((el,i) => <li key={i}> {el} </li> )}
                         region={organization.region_id.map((el,i) => <li key={i}> {el} </li> )}
                     />
@@ -80,7 +81,9 @@ const Org = (props) => (
                 <Item.Header>{props.name}</Item.Header>
                 <Item.Meta>Mission Statement</Item.Meta>
                 <Item.Description>{props.mission}</Item.Description>
-                <Item.Meta>Cause</Item.Meta>
+                <Item.Meta>Website</Item.Meta>
+                <Item.Description>{props.website}</Item.Description>
+                <Item.Meta>Causes</Item.Meta>
                 <Item.Extra>{props.cause}</Item.Extra>
                 <Item.Meta>Regions</Item.Meta>
                 <Item.Extra>{props.region}</Item.Extra>
