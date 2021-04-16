@@ -22,8 +22,8 @@ class NewPostForm extends React.Component {
             text: "",
             // channels: [],
             // user: [],
-            channel_id: 1,
-            user_id: 1,
+            channel_id: this.props.channels,
+            user_id: this.props.user.id,
         };
     }
     // componentDidMount() {
@@ -52,9 +52,9 @@ class NewPostForm extends React.Component {
         this.setState({ [e.target.name]: e.target.value });
     };
 
-    onChangeSelect = e =>{
-        this.setState({[e.target.name]: e.target.key});
-    }
+    // onChangeSelect = e =>{
+    //     this.setState({[e.target.name]: e.target.key});
+    // }
 
     createPost = e => {
         e.preventDefault();
@@ -100,7 +100,7 @@ class NewPostForm extends React.Component {
                         label='Channel'
                         onChange={this.onChange}
                         options={this.props.channels.map(channel => ({
-                            name: channel.channel_id,
+                            name: 'channel_id',
                             key: channel.channel_id,
                             value: channel.channel_id,
                             text: channel.name

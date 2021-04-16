@@ -45,6 +45,7 @@ class NewPostModal extends Component {
     render() {
         // console.log(this.state)
         // console.log(this.props)
+        console.log(this.state.user)
         const create = this.props.create;
         if (create) {
             var button = (
