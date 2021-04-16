@@ -23,7 +23,7 @@ class NewEventModal extends Component {
           onClick={this.toggle}
           style={{ minWidth: "150px", marginLeft: "61vw" }}
         >
-          Post an Event   <Icon name="plus circle"></Icon>
+          Post an Event
         </Button>
       );
     }

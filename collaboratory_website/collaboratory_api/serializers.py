@@ -46,7 +46,7 @@ class AuthUserSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.HyperlinkedModelSerializer):
 	user = AuthUserSerializer(required=True)
 	organization_id = OrganizationSerializer(read_only=True)
-	
+
 	class Meta:
 		model = User
 		fields = ( 'user', 'phone', 'preferred_pronouns', 'registration_date', 'role_id', 'organization_id')
@@ -59,6 +59,7 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
 		fields = ('name', 'date', 'location', 'RSVP', 'description', 'user')
 
 class ChannelSerializer(serializers.HyperlinkedModelSerializer):
+	# user_id = UserSerializer(read_only=True)
 	class Meta:
 		model = Channel
 		fields = ('channel_id', 'name', 'description')
@@ -70,11 +71,27 @@ class AnnouncementSerializer(serializers.HyperlinkedModelSerializer):
 		fields = ('announcement_id', 'title', 'text', 'date', 'user_id', 'event_id')
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):
+	# user_id = AuthUserSerializer(required=True)
+	# channel_id = ChannelSerializer(read_only=True)
+	# channel_id = ChannelSerializer(read_only=True)
+	# user_id = UserSerializer(read_only=True)
+
 	class Meta:
 		model = Post
-		fields = ('title', 'text', 'channel_id', 'user_id')
+		fields = ('title', 'text', 'channel', 'user')
 
-#TODO: Delete, unused
+	# def createChannel(self, validated_data):
+	# 	channel_data = validated_data.pop('channel_id')
+	# 	post = Post.objects.create(**validated_data)
+	# 	Channel.objects.create(post=post, **channel_data)
+	# 	return post
+
+	# def createUser(self, validated_data):
+	# 	user_data = validated_data.pop('user_id')
+	# 	post = Post.objects.create(**validated_data)
+	# 	User.objects.create(post=post, **user_data)
+	# 	return post
+
 class OrganizationRegionSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Organization_Region

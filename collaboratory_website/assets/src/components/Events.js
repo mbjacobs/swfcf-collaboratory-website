@@ -81,8 +81,6 @@ class Events extends React.Component {
                   </Header>
                   <Container id="event-filters-container">
                       <h2>Find ways to interact with others at Collaboratory.</h2>
-                      {/* <Button onClick={this.logButtonVal} size="medium" value="upcoming" className={(this.state.buttonVal == "upcoming") ? "ui black button" : "ui button"} >Upcoming</Button> */}
-                      {/* <Button onClick={this.logButtonVal} size="medium" value="past" className={(this.state.buttonVal != "upcoming") ? "ui black button" : "ui button"}>Past Events</Button> */}
                   </Container>
                   <NewEventModal
                         create={true}
