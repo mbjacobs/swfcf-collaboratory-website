@@ -3,7 +3,9 @@ import {
     Header,
     Segment,
     Container,
-    Button
+    Card,
+    Icon,
+    Label
   } from 'semantic-ui-react';
 import "../styles/Page.css";
 import NewEventModal from "./NewEventModal";
@@ -78,12 +80,14 @@ class Events extends React.Component {
                       <h1>Socials and Events</h1>
                   </Header>
                   <Container id="event-filters-container">
-                      <Button onClick={this.logButtonVal} size="medium" value="upcoming" className={(this.state.buttonVal == "upcoming") ? "ui black button" : "ui button"} >Upcoming</Button>
-                      <Button onClick={this.logButtonVal} size="medium" value="past" className={(this.state.buttonVal != "upcoming") ? "ui black button" : "ui button"}>Past Events</Button>
+                      <h2>Find ways to interact with others at Collaboratory.</h2>
+                      {/* <Button onClick={this.logButtonVal} size="medium" value="upcoming" className={(this.state.buttonVal == "upcoming") ? "ui black button" : "ui button"} >Upcoming</Button> */}
+                      {/* <Button onClick={this.logButtonVal} size="medium" value="past" className={(this.state.buttonVal != "upcoming") ? "ui black button" : "ui button"}>Past Events</Button> */}
                   </Container>
                   <NewEventModal
                         create={true}
                         resetState={this.resetState}
+                        user={this.props.data}
                       />
                   <Container style={{ marginTop: "20px" }}>
                     {!this.state.events || this.state.events.length <= 0 ? (<p>No events yet!</p>) :
@@ -93,7 +97,10 @@ class Events extends React.Component {
                               key={event.event_id}
                               name={event.name}
                               date={event.date}
+                              location={event.location}
+                              RSVP={event.RSVP}
                               description={event.description}
+                              user={event.user}
                             />
                         ))
                     )}
@@ -107,12 +114,20 @@ export default Events;
 
 const Event = (props) => {
     return (
-        <div class="ui card fluid">
-            <div class="content">
-                <div class="header">{props.name}</div>
-                <div class="meta">{props.date}</div>
-                <div class="description">{props.description}</div>
-            </div>
-        </div>
+      <Card fluid>
+        <Card.Content>
+          <Card.Header>{props.name}</Card.Header>
+          <Card.Meta>Posted by: <Icon name='user' /> {props.user}</Card.Meta>
+          <Card.Description>{props.description}</Card.Description>
+        </Card.Content>
+        <Card.Content extra>
+          <Label size="large">
+            <Icon name='map marker'/>Location: {props.location}
+          </Label>
+          <Label size="large">
+            <Icon name='mail'/>RSVP: {props.RSVP}
+          </Label>
+        </Card.Content>
+    </Card>
     );
 }

@@ -52,11 +52,11 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 		fields = ( 'user', 'phone', 'preferred_pronouns', 'registration_date', 'role_id', 'organization_id')
 
 class EventSerializer(serializers.HyperlinkedModelSerializer):
-	user_id = AuthUserSerializer(required=True)
+	# user_id = AuthUserSerializer(required=True)
 
 	class Meta:
 		model = Event
-		fields = ('name', 'date', 'description', 'user_id')
+		fields = ('name', 'date', 'location', 'RSVP', 'description', 'user')
 
 class ChannelSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:

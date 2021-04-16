@@ -41,6 +41,7 @@ class NewEventModal extends Component {
             <NewEventForm
                 resetState={this.props.resetState}
                 toggle={this.setOpen}
+                user={this.props.user}
             />
         </Modal.Content>
         </Modal>

@@ -86,10 +86,12 @@ class User(models.Model):
 class Event(models.Model):
     event_id = models.AutoField(db_column='EventID', primary_key=True)
     name = models.CharField(db_column='Name', max_length=50)
-    date = models.DateTimeField(db_column="Date", blank=True, null=True)
-    description = models.TextField(db_column="Text")
-    organization_id = models.ForeignKey(Organization, on_delete=models.SET_NULL, db_column='OrganizationID', null=True)
-    user_id = models.ForeignKey(User, on_delete=models.SET_NULL, db_column='UserID', null=True)
+    date = models.DateTimeField(db_column='Date', blank=True, null=True)
+    location = models.CharField(db_column='Location', max_length=250, blank=True, null=True)
+    RSVP = models.CharField(db_column='RSVP', max_length=100, blank=True, null=True)
+    description = models.TextField(db_column='Text', blank=True)
+    user = models.CharField(db_column='User', max_length=50, blank=True)
+    #user_id = models.ForeignKey(User, on_delete=models.SET_NULL, db_column='UserID', null=True)
 
     class Meta:
         # managed = False
