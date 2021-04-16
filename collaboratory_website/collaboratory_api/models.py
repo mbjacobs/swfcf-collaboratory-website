@@ -46,7 +46,7 @@ class Organization(models.Model):
     state = models.CharField(db_column='State', max_length=2)
     zip = models.CharField(db_column='Zip', max_length = 20, blank=True, null=True)
     country = models.CharField(db_column='Country', max_length=50)
-    phone = models.CharField(db_column='Phone', max_length=45)
+    phone = models.CharField(db_column='Phone', max_length=45, null=True)
     mission = models.TextField(db_column='MissionStmt')
     email =  models.EmailField(blank=True, null=True)
     website = models.URLField(db_column='Website', max_length=200, blank=True, null=True)
@@ -124,8 +124,10 @@ class Post(models.Model):
     post_id = models.AutoField(db_column='PostID', primary_key=True)
     title = models.CharField(db_column='Title', max_length=50)
     text = models.TextField(db_column='Text')
-    channel_id = models.ForeignKey(Channel, on_delete=models.CASCADE, db_column='ChannelID', null=True)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserID', null=True)
+    channel = models.CharField(db_column='Channel', max_length=50, blank=True)
+    user = models.CharField(db_column='User', max_length=50, blank=True)
+    # channel_id = models.ForeignKey(Channel, on_delete=models.CASCADE, db_column='ChannelID', null=True)
+    # user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserID', null=True)
     
     class Meta:
         # managed = False
