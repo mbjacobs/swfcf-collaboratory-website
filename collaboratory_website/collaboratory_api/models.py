@@ -86,10 +86,12 @@ class User(models.Model):
 class Event(models.Model):
     event_id = models.AutoField(db_column='EventID', primary_key=True)
     name = models.CharField(db_column='Name', max_length=50)
-    date = models.DateTimeField(db_column="Date", blank=True, null=True)
-    description = models.TextField(db_column="Text")
-    organization_id = models.ForeignKey(Organization, on_delete=models.SET_NULL, db_column='OrganizationID', null=True)
-    user_id = models.ForeignKey(User, on_delete=models.SET_NULL, db_column='UserID', null=True)
+    date = models.DateTimeField(db_column='Date', blank=True, null=True)
+    location = models.CharField(db_column='Location', max_length=250, blank=True, null=True)
+    RSVP = models.CharField(db_column='RSVP', max_length=100, blank=True, null=True)
+    description = models.TextField(db_column='Text', blank=True)
+    user = models.CharField(db_column='User', max_length=50, blank=True)
+    #user_id = models.ForeignKey(User, on_delete=models.SET_NULL, db_column='UserID', null=True)
 
     class Meta:
         # managed = False
@@ -104,6 +106,7 @@ class Channel(models.Model):
         # managed = False
         db_table = 'Channel'
 
+#TODO: Delete, unused
 class Announcement(models.Model):
     announcement_id = models.IntegerField(db_column='AnnouncementID', primary_key=True)
     title = models.CharField(db_column='Title', max_length=50)
@@ -128,6 +131,7 @@ class Post(models.Model):
         # managed = False
         db_table = 'Post'
 
+#TODO: Delete, unused
 class Organization_Region(models.Model):
     id = models.IntegerField(primary_key=True)
     organization_id = models.ForeignKey(Organization, on_delete=models.CASCADE, db_column='OrganizationID')
@@ -137,6 +141,7 @@ class Organization_Region(models.Model):
         # managed = False
         db_table = 'Organization-Region'
 
+#TODO: Delete, unused
 class Organization_Cause_Alignment(models.Model):
     id = models.IntegerField(primary_key=True)
     organization_id = models.ForeignKey(Organization, on_delete=models.CASCADE, db_column='OrganizationID')
@@ -146,6 +151,7 @@ class Organization_Cause_Alignment(models.Model):
         # managed = False
         db_table = 'Organization-Cause-Alignment'
 
+#TODO: Delete, unused
 class User_Event_Attendance(models.Model):
     id = models.IntegerField(primary_key=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserID')
@@ -155,6 +161,7 @@ class User_Event_Attendance(models.Model):
         # managed = False
         db_table = 'User-Event-Attendance'
 
+#TODO: Anyone know why these are commented out? Or why they exist here in the first place?
 # class AuthGroup(models.Model):
 #     name = models.CharField(unique=True, max_length=150)
 

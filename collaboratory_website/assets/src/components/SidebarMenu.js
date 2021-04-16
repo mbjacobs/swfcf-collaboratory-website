@@ -96,7 +96,9 @@ export default class SidebarMenu extends Component {
               <Channels />
             </Route>
             <Route path="/events">
-              <Events/>
+              <Events
+                data={this.state.user}
+              />
             </Route>
             <Route path="/directory">
               <Directory />

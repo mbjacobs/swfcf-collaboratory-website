@@ -26,6 +26,10 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from .serializers import *
 
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.decorators.csrf import csrf_exempt
+from braces.views import CsrfExemptMixin
+
 class RegionViewSet(viewsets.ModelViewSet):
     serializer_class = RegionSerializer
     queryset = Region.objects.all().order_by('region_id')
@@ -178,21 +182,24 @@ def current_user(request):
     })
 
 ## Events API View ##
+# @ensure_csrf_cookie
 @api_view(['GET', 'POST'])
-def events_list(request):
+@csrf_exempt
+def events_list(CsrfExemptMixin, request):
+    authentication_classes = []
+
     if request.method == 'GET':
         data = Event.objects.all()
         serializer = EventSerializer(data, context={'request': request}, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        console.log(request.data)
         serializer = EventSerializer(data=request.data)
-        console.log(serializer)
+        print(serializer)
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
-
+        print(request.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 ## Channels API Views ##
