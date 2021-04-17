@@ -86,6 +86,12 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     queryset = Post.objects.all().order_by('post_id')
 
+class PostFilter(generics.ListAPIView):
+    serializer_class = PostSerializer
+    queryset = Post.objects.all().order_by('post_id')
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['channel']
+
 class OrganizationRegionViewSet(viewsets.ModelViewSet):
     serializer_class = OrganizationRegionSerializer
     queryset = Organization_Region.objects.all().order_by('id')

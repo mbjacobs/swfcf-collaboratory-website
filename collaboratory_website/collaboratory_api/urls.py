@@ -62,6 +62,10 @@ urlpatterns = [
     path('orgsearch/', OrganizationSearchFilter.as_view(), name = 'Organization Search'),
     path('orgfilter/', OrganizationFilterForm.as_view(), name = 'Organization Filter'),
 
-    path('personsearch/', PersonSearchFilter.as_view(), name = 'Person Search')
+    path('personsearch/', PersonSearchFilter.as_view(), name = 'Person Search'),
+
+    # Discussion Post Filter
+    path('postfilter/', PostFilter.as_view(), name = 'Post Filter')
+
 ]
 
