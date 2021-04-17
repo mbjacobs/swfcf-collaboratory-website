@@ -10,23 +10,15 @@ import {
 import "../styles/Page.css";
 import NewPostModal from "./NewPostModal";
 import axios from "axios";
-
 import { CHANNELS_API_URL, POSTS_API_URL } from "../constants";
 import PostList from "./PostList";
 
 class Channels extends React.Component {
-
-    // state = {
-    //     channels: [],
-    //     posts: [],
-    //     activeIndex: 0
-    // };
-
     constructor(props) {
         super(props);
         this.state = {
             channels: [],
-            // posts: [],
+            posts: [],
             activeIndex: 0
         };
     }
@@ -39,24 +31,22 @@ class Channels extends React.Component {
         axios.get(CHANNELS_API_URL).then(res => this.setState({ channels: res.data }));
     };
 
-    handleClick = (e, titleProps) => {
+    getPosts = () => {
+        axios.get(POSTS_API_URL).then(res => this.setState({ posts: res.data }));
+    }
+    
+    handleClick = (titleProps) => {
         const { index } = titleProps
         const { activeIndex } = this.state
         const newIndex = activeIndex === index ? -1 : index
         this.setState({ activeIndex: newIndex })
     }
 
-    //Moved to PostList, so the list is in charge of fetching its own data.
-    // getPosts = () => {
-    //     axios.get(POSTS_API_URL).then(res => this.setState({ posts: res.data }));
-    // }
-
     resetState = () => {
         this.getChannels();
-        // this.getPosts();
+        this.getPosts();
     };
     render() {
-        console.log(this.state.channels)
         const { activeIndex } = this.state;
         return (
             <Segment class="body-content">
@@ -94,22 +84,10 @@ class Channels extends React.Component {
                 <NewPostModal
                     create={true}
                     resetState={this.resetState}
+                    user={this.props.data}
+                    channels={this.state.channels}
                 />
-                <PostList></PostList>
-                {/* <Container style={{ marginTop: "20px" }}>
-                    {!this.state.posts || this.state.posts.length <= 0 ? (<p>No posts yet!</p>) :
-                        (
-                            this.state.posts.map(post => (
-                                <Post
-                                    key={post.post_id}
-                                    title={post.title}
-                                    // channel={post.channel_id}
-                                    // user={post.user_id}
-                                    text={post.text}
-                                />
-                            ))
-                        )}
-                </Container> */}
+                <PostList posts={this.state.posts}></PostList>
             </Segment>
         );
     }
@@ -122,14 +100,3 @@ const Channel = (props) => {
         <Button>{props.name}</Button>
     );
 }
-// const Post = (props) => {
-//     return (
-//         <div class="ui card fluid">
-//             <div class="content">
-//                 <div class="header">{props.title}</div>
-//                 {/* <div class="meta"><strong>Channel:</strong>{props.channel_id} CHANNEL <strong>Posted by:</strong>{props.user_id} USERNAME</div> */}
-//                 <div class="description">{props.text}</div>
-//             </div>
-//         </div>
-//     );
-// }

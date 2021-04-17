@@ -54,7 +54,8 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware', #This should be uncommented before giving the public access.
+    'collaboratory_api.middle.DisableCSRFMiddleware', #This was implemented to prevent HTTP 403 errors for pilot testing purposes.
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -85,12 +86,6 @@ WSGI_APPLICATION = 'collaboratory_website.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#    }
-#}
 DATABASES = {
     'default': {
     'ENGINE': 'django.db.backends.mysql',
@@ -160,3 +155,16 @@ LOGOUT_REDIRECT_URL = "landing"
 # email testing server
 EMAIL_HOST = "localhost"
 EMAIL_PORT = 1025
+
+#CSRF
+# CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_HEADERS = (
+#     'xsrfheadername',
+#     'xsrfcookiename',
+#     'content-type',
+#     'X-CSRFTOKEN',
+# )
+
+# CORS_ORIGIN_WHITELIST = serverconfig.CORS_ORIGIN_WHITELIST
+# CSRF_TRUSTED_ORIGINS = serverconfig.CSRF_TRUSTED_ORIGINS
+# CSRF_COOKIE_NAME = "XSRF-TOKEN"

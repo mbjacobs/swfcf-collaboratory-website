@@ -3,10 +3,15 @@ import { Button, Icon, Modal } from 'semantic-ui-react';
 import NewPostForm from "./NewPostForm";
 
 class NewPostModal extends Component {
-    state = {
-        open: false
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
 
+            open: false
+        };
+    
+        console.log("in NewPostModal constructor", this.props)
+    }
     setOpen = () => {
         this.setState(previous => ({
             open: !previous.open
@@ -14,6 +19,7 @@ class NewPostModal extends Component {
     };
 
     render() {
+
         const create = this.props.create;
         if (create) {
             var button = (
@@ -23,7 +29,7 @@ class NewPostModal extends Component {
                     onClick={this.toggle}
                     style={{ minWidth: "150px", marginLeft: "61vw" }}
                 >
-                    Write a Post   <Icon name="plus circle"></Icon>
+                    Write a Post
                 </Button>
             );
         }
@@ -41,6 +47,8 @@ class NewPostModal extends Component {
                     <NewPostForm
                         resetState={this.props.resetState}
                         toggle={this.setOpen}
+                        user={this.props.user}
+                        channels={this.props.channels}
                     />
                 </Modal.Content>
                 </Modal>

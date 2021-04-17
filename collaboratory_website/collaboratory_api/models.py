@@ -46,7 +46,7 @@ class Organization(models.Model):
     state = models.CharField(db_column='State', max_length=2)
     zip = models.CharField(db_column='Zip', max_length = 20, blank=True, null=True)
     country = models.CharField(db_column='Country', max_length=50)
-    phone = models.CharField(db_column='Phone', max_length=45)
+    phone = models.CharField(db_column='Phone', max_length=45, null=True)
     mission = models.TextField(db_column='MissionStmt')
     email =  models.EmailField(blank=True, null=True)
     website = models.URLField(db_column='Website', max_length=200, blank=True, null=True)
@@ -86,10 +86,12 @@ class User(models.Model):
 class Event(models.Model):
     event_id = models.AutoField(db_column='EventID', primary_key=True)
     name = models.CharField(db_column='Name', max_length=50)
-    date = models.DateTimeField(db_column="Date", blank=True, null=True)
-    description = models.TextField(db_column="Text")
-    organization_id = models.ForeignKey(Organization, on_delete=models.SET_NULL, db_column='OrganizationID', null=True)
-    user_id = models.ForeignKey(User, on_delete=models.SET_NULL, db_column='UserID', null=True)
+    date = models.DateTimeField(db_column='Date', blank=True, null=True)
+    location = models.CharField(db_column='Location', max_length=250, blank=True, null=True)
+    RSVP = models.CharField(db_column='RSVP', max_length=100, blank=True, null=True)
+    description = models.TextField(db_column='Text', blank=True)
+    user = models.CharField(db_column='User', max_length=50, blank=True)
+    #user_id = models.ForeignKey(User, on_delete=models.SET_NULL, db_column='UserID', null=True)
 
     class Meta:
         # managed = False
@@ -104,6 +106,7 @@ class Channel(models.Model):
         # managed = False
         db_table = 'Channel'
 
+#TODO: Delete, unused
 class Announcement(models.Model):
     announcement_id = models.IntegerField(db_column='AnnouncementID', primary_key=True)
     title = models.CharField(db_column='Title', max_length=50)
@@ -121,13 +124,16 @@ class Post(models.Model):
     post_id = models.AutoField(db_column='PostID', primary_key=True)
     title = models.CharField(db_column='Title', max_length=50)
     text = models.TextField(db_column='Text')
-    channel_id = models.ForeignKey(Channel, on_delete=models.CASCADE, db_column='ChannelID', null=True)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserID', null=True)
+    channel = models.CharField(db_column='Channel', max_length=50, blank=True)
+    user = models.CharField(db_column='User', max_length=50, blank=True)
+    # channel_id = models.ForeignKey(Channel, on_delete=models.CASCADE, db_column='ChannelID', null=True)
+    # user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserID', null=True)
     
     class Meta:
         # managed = False
         db_table = 'Post'
 
+#TODO: Delete, unused
 class Organization_Region(models.Model):
     id = models.IntegerField(primary_key=True)
     organization_id = models.ForeignKey(Organization, on_delete=models.CASCADE, db_column='OrganizationID')
@@ -137,6 +143,7 @@ class Organization_Region(models.Model):
         # managed = False
         db_table = 'Organization-Region'
 
+#TODO: Delete, unused
 class Organization_Cause_Alignment(models.Model):
     id = models.IntegerField(primary_key=True)
     organization_id = models.ForeignKey(Organization, on_delete=models.CASCADE, db_column='OrganizationID')
@@ -146,6 +153,7 @@ class Organization_Cause_Alignment(models.Model):
         # managed = False
         db_table = 'Organization-Cause-Alignment'
 
+#TODO: Delete, unused
 class User_Event_Attendance(models.Model):
     id = models.IntegerField(primary_key=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='UserID')
@@ -155,6 +163,7 @@ class User_Event_Attendance(models.Model):
         # managed = False
         db_table = 'User-Event-Attendance'
 
+#TODO: Anyone know why these are commented out? Or why they exist here in the first place?
 # class AuthGroup(models.Model):
 #     name = models.CharField(unique=True, max_length=150)
 

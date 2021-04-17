@@ -1,48 +1,30 @@
 import React, { Component } from "react";
 import {
     Container,
+    Icon,
+    Label,
+    Card
   } from 'semantic-ui-react';
-import axios from "axios";
 
-import {POSTS_API_URL} from "../constants";
-
-class PostList extends Component {
+  class PostList extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            posts: [],
-        };
     }
-    // state = {
-    //     posts: [],
-    //   };
-
-      componentDidMount() {
-        this.resetState();
-      }
-
-      getPosts = () => {
-        axios.get(POSTS_API_URL).then(res => this.setState({ posts: res.data }));
-      };
-
-      resetState = () => {
-        this.getPosts();
-      };
 
     render() {
-        console.log(this.state.posts)
+        console.log(this.props.posts)
         return (
             <Container style={{ marginTop: "20px" }}>
-            {!this.state.posts || this.state.posts.length <= 0 ? (<p>No posts yet!</p>) :
+            {!this.props.posts || this.props.posts.length <= 0 ? (<p>No posts yet!</p>) :
             (
-                this.state.posts.map(post => (
+                this.props.posts.map(post => (
                 <Post
                     key={post.post_id}
                     title={post.title}
                     text={post.text}
-                    channel_id={post.channel_id}
-                    user_id={post.user_id}
+                    channel={post.channel}
+                    user={post.user}
                   />
                 ))
             )}
@@ -55,14 +37,17 @@ export default PostList;
 
 const Post = (props) => {
     return (
-        <div class="ui card fluid">
-            <div class="content">
-                <div class="header">{props.title}</div>
-                <div class="description">{props.text}</div>
-                {/* <div class="int"><strong>Channel ID: </strong>{props.channel_id}</div> */}
-                {/* <div class="int"><strong>Posted by (User ID): </strong>{props.user_id}</div> */}
-                <div class="meta"><strong>Channel: </strong>{props.channel_id} <strong>Posted by: </strong>{props.user_id}</div>
-            </div>
-        </div>
+        <Card fluid>
+          <Card.Content>
+            <Card.Header>{props.title}</Card.Header>
+            <Card.Meta>Posted by: <Icon name='user' /> {props.user}</Card.Meta>
+            <Card.Description>{props.text}</Card.Description>
+          </Card.Content>
+          <Card.Content extra>
+            <Label size="medium">
+              Channel: {props.channel}
+            </Label>
+        </Card.Content>
+      </Card>
     );
 }

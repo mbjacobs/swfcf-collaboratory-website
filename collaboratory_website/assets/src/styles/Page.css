@@ -28,6 +28,15 @@ h3 {
   justify-content: center;
 }
 
+.card #details {
+  display:flex;
+  flex-direction: row;
+}
+
+#event-detail {
+  padding: 5%;
+}
+
 /* #event-filters-container .ui.button {
   font-size: 24px;
   margin: 5%;
