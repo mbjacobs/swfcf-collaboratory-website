@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { Component } from 'react'
-import { Menu } from 'semantic-ui-react'
+import { Menu, Button } from 'semantic-ui-react'
 import '../styles/SidebarMenu.css'
 // import Logo from '../collab-logo.jpg'
 import {
@@ -55,11 +55,12 @@ export default class SidebarMenu extends Component {
               id='user-profile'
               name='profile'
             >
-              <i className="huge icons">
+              {/* <i className="huge icons">
                 <i className="big circle outline icon"></i>
                 <i className="user icon"></i>
-              </i>
-              <p>{this.state.user['first name']} {this.state.user['last name']}</p>
+              </i> */}
+              <h3>{this.state.user['first name']} {this.state.user['last name']}</h3>
+              <Button color='blue'>View Profile</Button>
             </Menu.Item>
           </Link>
           <Link to="/channels">
