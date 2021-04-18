@@ -49,10 +49,12 @@ class Profile extends React.Component {
   FormatUser = (auth_user, user_list) => {
 
     for (let userObj of user_list) {
+      if ((auth_user != []) && user_list != []) {
         if (auth_user.username == userObj.user.username) {
             console.log("found the match")
             return userObj
         };
+      }
     }
   };
 
@@ -62,15 +64,12 @@ class Profile extends React.Component {
   };
 
     render() {
-      console.log("i can access 1", this.state.user)
-      console.log("i can access 2", this.state.usersList)
-      console.log("i can make", typeof this.FormatUser(this.state.user, this.state.usersList))
       return (
             <Segment className="body-content">
             <Header>
                 <h1>Your Profile</h1>
             </Header>
-            <h4>If you haven't already done so, please connect to your organization so others can find you in our directory.</h4>
+            <h4>If you haven't already done so, please connect to your organization so others can find you in our directory. Once you hit submit, refresh the page to see your organization. </h4>
             <Container style={{ marginTop: "20px" }}>
               <h3>First Name: </h3>
               <ProfileCard data={this.props.data['first name']}/>
@@ -92,7 +91,7 @@ class Profile extends React.Component {
             </Container>
             <Container style={{ marginTop: "20px" }}>
               <h3>Organization: </h3>
-              <ProfileCard data='organization'/>
+              <ProfileCard data={typeof this.FormatUser(this.state.user, this.state.usersList) == 'undefined' ? 'rendering' : this.FormatUser(this.state.user, this.state.usersList).organization_id.name}/>
             </Container>
             <Container>
                 <Button onClick={this.handleConnectClick} attached='bottom' color='blue' >Connect to Organization</Button>

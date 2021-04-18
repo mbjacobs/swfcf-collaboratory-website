@@ -80,10 +80,6 @@ class ConnectToOrg extends React.Component {
             url: `${USERS_API_URL}${this.state.user.id}/`,
             data: {"organization_id": this.state.organization},
             });
-        // axios.put(`${USERS_API_URL}${this.state.user.id}/`, {data}).then(() => {
-        //     console.log(USERS_API_URL)
-        //     this.props.resetState();
-        //     this.props.toggle();
         };
 
     render() {
