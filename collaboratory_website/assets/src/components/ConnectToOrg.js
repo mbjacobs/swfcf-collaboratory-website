@@ -66,29 +66,25 @@ class ConnectToOrg extends React.Component {
         }
     };
 
-
     onDropdownChange = (e, data) => {
         console.log("logging the dropdown change", { [data.name]: data.value } )
         this.setState({ [data.name]: data.value });
     };
 
     updateOrg = e => {
-        var data = this.matchFormattedUser(this.state.user, this.state.usersList, this.state.organization)
         // console.log(typeof data)
         // console.log("this is the user object to be passed in", data)
         e.preventDefault();
         axios({
-            method: 'put',
+            method: 'patch',
             url: `${USERS_API_URL}${this.state.user.id}/`,
-            data: data,
+            data: {"organization_id": this.state.organization},
             });
         // axios.put(`${USERS_API_URL}${this.state.user.id}/`, {data}).then(() => {
         //     console.log(USERS_API_URL)
-            // this.props.resetState();
-            // this.props.toggle();
+        //     this.props.resetState();
+        //     this.props.toggle();
         };
-
-    // Need a function that will accept the list of users, and then return the USER object (not just auth user)
 
     render() {
     return (
@@ -117,13 +113,3 @@ class ConnectToOrg extends React.Component {
 }
 
 export default ConnectToOrg;
-
-// getCurrentUser= () => {
-    //axios.get(CURRENT_USER_API_URL).then(res =>  {
-    //  const users = res.data;
-    //  this.setState({ users });
-
-    //});
-
-//import { CURRENT_USER_API_URL } from "../constants";
-//import axios from "axios";

@@ -49,7 +49,7 @@ class Organization(models.Model):
     phone = models.CharField(db_column='Phone', max_length=45, blank=True, null=True)
     mission = models.TextField(db_column='MissionStmt')
     email =  models.EmailField(blank=True, null=True)
-    website = models.URLField(db_column='Website', max_length=200, blank=True, null=True)
+    website = models.CharField(db_column='Website', max_length=200, blank=True, null=True)
     facebook = models.CharField(db_column='Facebook', max_length=200, blank=True, null=True)
     twitter = models.CharField(db_column='Twitter', max_length=200, blank=True, null=True)
     founded = models.IntegerField(db_column='YearFounded', blank=True, null=True)
