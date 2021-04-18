@@ -9,11 +9,14 @@ import {
   Route,
   Link
 } from "react-router-dom";
+
+import DashboardHome from "./DashboardHome";
 import Channels from "./Channels";
 import Events from "./Events";
 import Directory from "./Directory";
 import Profile from "./Profile";
 import { CURRENT_USER_API_URL } from "../constants";
+
 
 export default class SidebarMenu extends Component {  
   constructor (props) {
@@ -44,12 +47,15 @@ export default class SidebarMenu extends Component {
     return (
       <Router basename='/dashboard'>
         <Menu inverted vertical menu>
+
+        <Link to="/home">
           <Menu.Item as='h2'
             id='site-title'
             name='Collaboratory Online'
-
-          >
+            >
           </Menu.Item>
+          </Link>
+
           <Link to="/profile">
             <Menu.Item
               id='user-profile'
@@ -79,6 +85,9 @@ export default class SidebarMenu extends Component {
           </Link>
         </Menu>
         <Switch>
+            <Route path="/home">
+              <DashboardHome />
+            </Route>
             <Route path="/profile">
               <Profile 
                 data={this.state.user}

@@ -27,7 +27,7 @@ router.register(r'post', views.PostViewSet)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     # this route catches the "naked" URL with no path specified. you can link to it in most places
-    path(r'dashboard/', views.MainView.as_view(), name='react_app'),  
+    path(r'dashboard/home', views.MainView.as_view(), name='react_app'),  
     # this route catches any url below the main one, so the path can be passed to the front end
     path(r'dashboard/<path:path>', views.MainView.as_view(), name='react_app_with_path'),
     #login #what's the difference between path and url? path & re_path?
@@ -49,7 +49,7 @@ urlpatterns = [
     re_path(r'^events/$', views.events_list),
     re_path(r'^post/$', views.posts_list),
     # this route catches the "naked" URL with no path specified. you can link to it in most places
-    path(r'dashboard/', views.MainView.as_view(), name='react_app'),  
+    path(r'dashboard/home', views.MainView.as_view(), name='react_app'),  
     # this route catches any url below the main one, so the path can be passed to the front end
     path(r'dashboard/<path:path>', views.MainView.as_view(), name='react_app_with_path'),
     #login #what's the difference between path and url? path & re_path?
