@@ -12,7 +12,6 @@ import NewPostModal from "./NewPostModal";
 import axios from "axios";
 import { CHANNELS_API_URL, POSTS_API_URL } from "../constants";
 import PostList from "./PostList";
-import { ProgressPlugin } from "webpack";
 
 class Channels extends React.Component {
     constructor(props) {
@@ -20,38 +19,13 @@ class Channels extends React.Component {
         this.state = {
             channels: [],
             posts: [],
-            activeIndex: 0,
-            channelValue: "",  //added this
+            activeIndex: 0
         };
-    this.logChannelVal = this.logChannelVal.bind(this); //added this
     }
 
     componentDidMount() {
         this.resetState();
-    };
-
-    // added this, post search code
-    logChannelVal = (e) => {
-        this.setState({ channelValue: e.target.value });
-        console.log(e.target.value);
-    };
-
-    handleSearch = () => {
-        this.makeApiCall(this.state.channelValue);
-    };
-
-    makeApiCall = (channelValue) => {
-        var searchUrl = `http://localhost:8000/postfilter/?${channelValue}`;
-        fetch(searchUrl)
-        .then(response => {
-            return response.json();
-        })
-        .then(jsonData => {
-            this.setState({ posts: jsonData }); //overwriting the posts in state but this should be fine
-        });
-    };
-
-    // done with extra code
+    }
 
     getChannels = () => {
         axios.get(CHANNELS_API_URL).then(res => this.setState({ channels: res.data }));
@@ -60,7 +34,7 @@ class Channels extends React.Component {
     getPosts = () => {
         axios.get(POSTS_API_URL).then(res => this.setState({ posts: res.data }));
     }
-
+    
     handleClick = (titleProps) => {
         const { index } = titleProps
         const { activeIndex } = this.state
@@ -105,7 +79,7 @@ class Channels extends React.Component {
                         </Accordion.Content>
                         </Accordion>
                         <Segment inverted>
-                            <Button onClick={this.handleSearch} floated='right' inverted color='standard'>Apply</Button>
+                            <Button onClick={this.handleSearch} floated='right' size ='large' inverted color='standard'>Apply</Button>
                             <h2></h2>
                         </Segment>
                     </Segment>
@@ -125,11 +99,8 @@ class Channels extends React.Component {
 
 export default Channels;
 
-// only thing missing is need to add a value, and onclick this.logChannelVal
-// button should be as follows (i believe the props should be included)
-// <Button onClick={this.logChannelVal} value={this.props.name}>
 const Channel = (props) => {
     return (
-        <Button onClick={this.logChannelVal} value={this.props.name}>{props.name}</Button>
+        <Button>{props.name}</Button>
     );
 }

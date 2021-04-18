@@ -45,7 +45,7 @@ urlpatterns = [
     # re_path(r'^organizations/$', views.organizations_list),
     # re_path(r'^organizations/([0-9])$', views.organizations_detail),
     re_path(r'^users/$', views.users_list),
-    re_path(r'^users/([0-9])$', views.users_detail),
+    re_path(r'^userss/([0-9])$', views.users_detail),
     re_path(r'^events/$', views.events_list),
     re_path(r'^post/$', views.posts_list),
     # this route catches the "naked" URL with no path specified. you can link to it in most places

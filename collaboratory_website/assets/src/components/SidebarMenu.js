@@ -15,7 +15,7 @@ import Directory from "./Directory";
 import Profile from "./Profile";
 import { CURRENT_USER_API_URL } from "../constants";
 
-export default class SidebarMenu extends Component {  
+export default class SidebarMenu extends Component {
   constructor (props) {
     super(props);
     this.state = {

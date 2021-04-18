@@ -157,11 +157,17 @@ def users_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PUT', 'DELETE'])
+
 def users_detail(request, pk):
     try:
         user = User.objects.get(pk=pk)
     except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        data = User.objects.all()
+        serializer = UserSerializer(data, context={'request': request}, many=True)
+    return Response(serializer.data)
 
     if request.method == 'PUT':
         serializer = UserSerializer(user, data=request.data,context={'request': request})

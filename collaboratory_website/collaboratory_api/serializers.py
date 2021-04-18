@@ -4,6 +4,7 @@ from rest_framework import serializers
 from .models import Region, Role, Cause, User, Organization, Event, Channel, Post, Organization_Region, Organization_Cause_Alignment, User_Event_Attendance, Announcement
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.models import User as auth_user
+from drf_writable_nested.serializers import NestedUpdateMixin
 
 
 class RegionSerializer(serializers.HyperlinkedModelSerializer):
@@ -43,10 +44,11 @@ class AuthUserSerializer(serializers.ModelSerializer):
         model = auth_user
         fields = ('username', 'first_name', 'last_name', 'email')
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(NestedUpdateMixin, serializers.ModelSerializer):
 	user = AuthUserSerializer(required=True)
-	organization_id = OrganizationSerializer(read_only=True)
-	
+
+	organization_id = OrganizationSerializer(allow_null=True)
+
 	class Meta:
 		model = User
 		fields = ( 'user', 'phone', 'preferred_pronouns', 'registration_date', 'role_id', 'organization_id')
