@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { Component } from 'react'
-import { Menu } from 'semantic-ui-react'
+import { Menu, Button } from 'semantic-ui-react'
 import '../styles/SidebarMenu.css'
 // import Logo from '../collab-logo.jpg'
 import {
@@ -17,8 +17,7 @@ import Directory from "./Directory";
 import Profile from "./Profile";
 import { CURRENT_USER_API_URL } from "../constants";
 
-
-export default class SidebarMenu extends Component {  
+export default class SidebarMenu extends Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -32,9 +31,7 @@ export default class SidebarMenu extends Component {
 
   getUser = () => {
     axios.get(CURRENT_USER_API_URL).then(res =>  {
-      console.log(res.data)
       this.setState({ user: res.data });
-      console.log(this.state.user)
     });
   };
 
@@ -47,7 +44,6 @@ export default class SidebarMenu extends Component {
     return (
       <Router basename='/dashboard'>
         <Menu inverted vertical menu>
-
         <Link to="/home">
           <Menu.Item as='h2'
             id='site-title'
@@ -61,11 +57,8 @@ export default class SidebarMenu extends Component {
               id='user-profile'
               name='profile'
             >
-              <i className="huge icons">
-                <i className="big circle outline icon"></i>
-                <i className="user icon"></i>
-              </i>
-              <p>{this.state.user['first name']} {this.state.user['last name']}</p>
+              <h3>{this.state.user['first name']} {this.state.user['last name']}</h3>
+              <Button color='blue'>View Profile</Button>
             </Menu.Item>
           </Link>
           <Link to="/channels">

@@ -86,6 +86,12 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     queryset = Post.objects.all().order_by('post_id')
 
+class PostFilter(generics.ListAPIView):
+    serializer_class = PostSerializer
+    queryset = Post.objects.all().order_by('post_id')
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['channel']
+
 class OrganizationRegionViewSet(viewsets.ModelViewSet):
     serializer_class = OrganizationRegionSerializer
     queryset = Organization_Region.objects.all().order_by('id')
@@ -151,11 +157,17 @@ def users_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PUT', 'DELETE'])
+
 def users_detail(request, pk):
     try:
         user = User.objects.get(pk=pk)
     except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        data = User.objects.all()
+        serializer = UserSerializer(data, context={'request': request}, many=True)
+    return Response(serializer.data)
 
     if request.method == 'PUT':
         serializer = UserSerializer(user, data=request.data,context={'request': request})

@@ -19,8 +19,10 @@ class Channels extends React.Component {
         this.state = {
             channels: [],
             posts: [],
-            activeIndex: 0
+            activeIndex: 0,
+            channelVal: "",
         };
+    this.logChannelVal = this.logChannelVal.bind(this);
     }
 
     componentDidMount() {
@@ -34,19 +36,28 @@ class Channels extends React.Component {
     getPosts = () => {
         axios.get(POSTS_API_URL).then(res => this.setState({ posts: res.data }));
     }
-    
+
     handleClick = (titleProps) => {
         const { index } = titleProps
         const { activeIndex } = this.state
         const newIndex = activeIndex === index ? -1 : index
         this.setState({ activeIndex: newIndex })
     }
+    logChannelVal = (e) => {
+    this.setState({ channelVal: e.target.value });
+    console.log(e.target.value);
+    };
+
+    handleSearch = () => {
+       console.log("send the search!");
+    };
 
     resetState = () => {
         this.getChannels();
         this.getPosts();
     };
     render() {
+        console.log("this is the channel val", this.state.channelVal)
         const { activeIndex } = this.state;
         return (
             <Segment class="body-content">
@@ -78,6 +89,10 @@ class Channels extends React.Component {
                             </Container>
                         </Accordion.Content>
                         </Accordion>
+                        <Segment inverted>
+                            <Button onClick={this.handleSearch} floated='right' size ='large' inverted color='standard'>Apply</Button>
+                            <h2></h2>
+                        </Segment>
                     </Segment>
                 </Container>
                 <h3>Posts</h3>
@@ -96,7 +111,8 @@ class Channels extends React.Component {
 export default Channels;
 
 const Channel = (props) => {
+
     return (
-        <Button>{props.name}</Button>
+        <Button onClick={ () => {console.log(props.name)} } value={props.name}>{props.name}</Button>
     );
 }

@@ -9,6 +9,7 @@ import {
   } from 'semantic-ui-react';
 import "../styles/Page.css";
 import NewEventModal from "./NewEventModal";
+import ConnectToOrg from "./ConnectToOrg";
 import axios from "axios";
 
 import { EVENTS_API_URL } from "../constants";
