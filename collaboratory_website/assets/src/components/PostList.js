@@ -37,8 +37,6 @@ import {
 export default PostList;
 
 const Post = (props) => {
-  console.log(props.key)
-  console.log(props.postId)
     return (
         <Card fluid>
           <Card.Content>
