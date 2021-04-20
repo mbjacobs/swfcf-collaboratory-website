@@ -58,6 +58,23 @@ class Profile extends React.Component {
     }
   };
 
+  setOrganization = (theUser, theList) => {
+    let status = []
+      if ( typeof this.FormatUser(theUser, theList) == 'undefined' ) {
+        status.push('Not connected')
+    }
+    else {
+        if ( this.FormatUser(theUser, theList).organization_id != null){
+          status.push(this.FormatUser(theUser, theList).organization_id.name)
+      }
+        else {
+          status.push('Not connected')
+        }
+    }
+    console.log(status)
+    return status
+  };
+
   handleConnectClick() {
     this.setState({isConnected: true});
     console.log("connecting to org")
@@ -91,7 +108,10 @@ class Profile extends React.Component {
             </Container>
             <Container style={{ marginTop: "20px" }}>
               <h3>Organization: </h3>
-              <ProfileCard data={typeof this.FormatUser(this.state.user, this.state.usersList) == 'undefined' ? 'rendering' : this.FormatUser(this.state.user, this.state.usersList).organization_id.name}/>
+              <ProfileCard data={this.setOrganization(this.state.user, this.state.usersList)}/>
+              {/* <ProfileCard data={typeof this.FormatUser(this.state.user, this.state.usersList) == 'undefined' ?
+                                  'Not connected' : // if unrendered
+                                  this.FormatUser(this.state.user, this.state.usersList).organization_id.name}/> */}
             </Container>
             <Container>
                 <Button onClick={this.handleConnectClick} attached='bottom' color='blue' >Connect to Organization</Button>

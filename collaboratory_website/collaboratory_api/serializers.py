@@ -58,7 +58,7 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
 
 	class Meta:
 		model = Event
-		fields = ('name', 'date', 'location', 'RSVP', 'description', 'user')
+		fields = ('event_id','name', 'date', 'location', 'RSVP', 'description', 'user')
 
 class ChannelSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
@@ -73,7 +73,7 @@ class AnnouncementSerializer(serializers.HyperlinkedModelSerializer):
 class PostSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Post
-		fields = ('title', 'text', 'channel', 'user')
+		fields = ('post_id', 'title', 'text', 'channel', 'user')
 
 class OrganizationRegionSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
