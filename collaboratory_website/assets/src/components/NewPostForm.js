@@ -35,6 +35,7 @@ class NewPostForm extends React.Component {
         console.log(this.state)
         return (
             <Form onSubmit={this.createPost}>
+                <h4>When making your new post, don't forget to select the discussion board.</h4>
                 <Form.Group widths='equal'>
                     <Form.Field>
                         <label>Title</label>
@@ -47,8 +48,8 @@ class NewPostForm extends React.Component {
                     </Form.Field>
                     <Form.Select
                         fluid
-                        label='Channel'
-                        placeholder='Select a channel'
+                        label='Discussion Board'
+                        placeholder='Select a board'
                         onChange={this.onDropdownChange}
                         name="channel"
                         default="General"

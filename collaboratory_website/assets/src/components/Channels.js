@@ -43,22 +43,33 @@ class Channels extends React.Component {
         const newIndex = activeIndex === index ? -1 : index
         this.setState({ activeIndex: newIndex })
     }
-    logChannelVal = (e) => {
-    this.setState({ channelVal: e.target.value });
-    console.log(e.target.value);
+    logChannelVal = (v) => {
+        this.setState({ channelVal: v });
+        console.log("log channel val run", v);
     };
 
+
+    // CODE NEEDED TO MAKE THE API CALL
     handleSearch = () => {
-       console.log("send the search!");
+        // console.log("send the search! Will trigger makeApiCall");
+        // uncomment this code when state saves the correct channel val
+        this.makeApiCall(this.state.channelVal);
     };
+    makeApiCall = (channelVal) => {
+        axios.get(`http://localhost:8000/postfilter/?channel=${channelVal}`).then(res => this.setState({ posts: res.data }));
+    };
+    // FINISH HERE
+
 
     resetState = () => {
         this.getChannels();
         this.getPosts();
     };
+
+
     render() {
-        console.log("this is the channel val", this.state.channelVal)
         const { activeIndex } = this.state;
+        console.log(this.state.activeIndex)
         return (
             <Segment class="body-content">
                 <Header>
@@ -72,7 +83,7 @@ class Channels extends React.Component {
                             index={0}
                             onClick={this.handleClick}
                         >
-                            <Icon size="huge" name='dropdown'/>Channels
+                            <Icon size="huge" name='dropdown'/>Discussion Boards
                         </Accordion.Title>
                         <Accordion.Content active={activeIndex === 0}>
                             <Container style={{display:"flex"}}>
@@ -82,6 +93,7 @@ class Channels extends React.Component {
                                             <Channel
                                                 key={channel.channel_id}
                                                 name={channel.name}
+                                                handler = {this.logChannelVal}
                                             />
                                         ))
                                     )
@@ -110,9 +122,10 @@ class Channels extends React.Component {
 
 export default Channels;
 
+
 const Channel = (props) => {
 
     return (
-        <Button onClick={ () => {console.log(props.name)} } value={props.name}>{props.name}</Button>
+        <Button onClick={ () => {console.log("can grab the name, set this to channelVal --->", props.handler(props.name))}} value={props.name}>{props.name}</Button>
     );
 }

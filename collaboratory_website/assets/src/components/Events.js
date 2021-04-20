@@ -94,6 +94,7 @@ class Events extends React.Component {
                         this.state.events.map(event => (
                           <Event
                               key={event.event_id}
+                              eventId={event.event_id}
                               name={event.name}
                               date={event.date}
                               location={event.location}
@@ -126,6 +127,9 @@ const Event = (props) => {
           <Label size="large">
             <Icon name='mail'/>RSVP: {props.RSVP}
           </Label>
+          <Label attached='bottom right'>
+              {props.eventId}
+            </Label>
         </Card.Content>
     </Card>
     );

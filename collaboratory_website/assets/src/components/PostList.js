@@ -21,6 +21,7 @@ import {
                 this.props.posts.map(post => (
                 <Post
                     key={post.post_id}
+                    postId={post.post_id}
                     title={post.title}
                     text={post.text}
                     channel={post.channel}
@@ -45,7 +46,10 @@ const Post = (props) => {
           </Card.Content>
           <Card.Content extra>
             <Label size="medium">
-              Channel: {props.channel}
+              Discussion Board: {props.channel}
+            </Label>
+            <Label attached='bottom right'>
+              {props.postId}
             </Label>
         </Card.Content>
       </Card>
