@@ -83,7 +83,7 @@ class Channels extends React.Component {
                             index={0}
                             onClick={this.handleClick}
                         >
-                            <Icon size="huge" name='dropdown'/>Channels
+                            <Icon size="huge" name='dropdown'/>Discussion Boards
                         </Accordion.Title>
                         <Accordion.Content active={activeIndex === 0}>
                             <Container style={{display:"flex"}}>
