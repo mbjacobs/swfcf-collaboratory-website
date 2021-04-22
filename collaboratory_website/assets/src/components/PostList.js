@@ -13,7 +13,6 @@ import {
     }
 
     render() {
-        console.log(this.props.posts)
         return (
             <Container style={{ marginTop: "20px" }}>
             {!this.props.posts || this.props.posts.length <= 0 ? (<p>No posts yet!</p>) :

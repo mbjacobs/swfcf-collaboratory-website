@@ -1,14 +1,11 @@
 import React, {Component} from 'react';
 import {
-    Header,
-    Segment,
-    Container,
-    Button,
-    Card,
     Item
   } from 'semantic-ui-react';
 import "../styles/Page.css";
 import "../styles/Directory.css";
+import { ORGANIZATIONS_SEARCH_API_URL } from "../constants";
+
 
 
 class SearchOrg extends Component {
@@ -26,7 +23,7 @@ class SearchOrg extends Component {
     };
 
     makeApiCall = searchInput => {
-        var searchUrl = `http://localhost:8000/orgsearch/?search=${searchInput}`;
+        var searchUrl = ORGANIZATIONS_SEARCH_API_URL + `?search=${searchInput}`;
         fetch(searchUrl)
         .then(response => {
             return response.json();
@@ -91,46 +88,3 @@ const Org = (props) => (
         </Item>
     </Item.Group>
   )
-
-//     render() {
-//         console.log(this.state.events)
-//         return (
-//               <Segment class="body-content">
-//                   <Header>
-//                       <h1>Search Results</h1>
-//                   </Header>
-//                   <Container style={{ marginTop: "20px" }}>
-//                     {!this.state.events || this.state.events.length <= 0 ? (<p>No events yet!</p>) : 
-//                     (
-//                         this.state.events.map(event => (
-//                         <Org
-//                             key={event.pk}
-//                             name={event.name}
-//                             date={event.date}
-//                             description={event.description}
-//                           />
-//                         ))
-//                     )}
-//                 </Container>
-//               </Segment>
-//           );
-//       }
-//   }
-
-
-
-
-
-
-
-// const Org = (props) => {
-//     return (
-//         <div class="ui card">
-//             <div class="content">
-//                 <div class="header">{props.name}</div>
-//                 <div class="meta">{props.date}</div>
-//                 <div class="description">{props.description}</div>
-//             </div>
-//         </div>
-//     );
-// }

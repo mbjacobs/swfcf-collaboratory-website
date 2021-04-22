@@ -1,10 +1,8 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 
 import {
   Header,
-  Container,
   Segment,
-  List,
   Divider,
   Message,
 } from 'semantic-ui-react';
@@ -21,7 +19,7 @@ class DashboardHome extends Component {
       </Header>
         <h2>Value Statements</h2>
         <Message warning>
-          <Message.Header>Below is the placeholder for value statements.</Message.Header>
+          <Message.Header>Below is the placeholder for Collaboratory's value statements.</Message.Header>
           <p>Placeholder content excerpted from The Shark Pledge in Finding Nemo.</p>
         </Message>
         <h3>"I am a nice shark, not a mindless eating machine. If I am to change this image, I must first change myself. Fish are friends, not food."</h3>
@@ -29,7 +27,7 @@ class DashboardHome extends Component {
       <Divider></Divider>
         <h2>Rules of Engagement</h2>
         <Message warning>
-          <Message.Header>Below is the placeholder for rules of engagement.</Message.Header>
+          <Message.Header>Below is the placeholder for Collaboratory's rules of engagement.</Message.Header>
           <p>Placeholder content excerpted from The Shark Pledge in Finding Nemo.</p>
         </Message>
         <h4>Fish are friends, not food. Though we have long sharp teeth, we're nice sharks underneath. We know that fish are friends, not food.</h4>

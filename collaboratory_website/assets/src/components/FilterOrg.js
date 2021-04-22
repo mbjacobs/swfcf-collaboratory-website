@@ -1,16 +1,12 @@
 import React, {Component} from 'react';
 import {
-    Header,
     Segment,
-    Container,
-    Button,
-    Divider,
-    Card,
     Item,
-    Form,
     } from 'semantic-ui-react';
 import "../styles/Page.css";
 import "../styles/Directory.css";
+import { ORGANIZATIONS_FILTER_API_URL } from "../constants";
+
 
 class FilterOrg extends Component {
     state = {
@@ -27,12 +23,12 @@ class FilterOrg extends Component {
 
     logRegionVal = (e) => {
         this.setState({ searchRegionValue: `region_id=${e.target.value}` });
-        console.log(`region=${e.target.value}`);
+        // console.log(`region=${e.target.value}`);
     };
 
     logCauseVal = (e) => {
         this.setState({ searchCauseValue: `cause_id=${e.target.value}` });
-        console.log(`cause=${e.target.value}`);
+        // console.log(`cause=${e.target.value}`);
     };
 
     handleSearch = () => {
@@ -40,7 +36,7 @@ class FilterOrg extends Component {
     };
 
     makeApiCall = (searchReg, searchCause) => {
-        var searchUrl = `http://localhost:8000/orgfilter/?${searchReg}&${searchCause}`;
+        var searchUrl = ORGANIZATIONS_FILTER_API_URL + `?search=${searchReg}&${searchCause}`;
         fetch(searchUrl)
         .then(response => {
             return response.json();
@@ -55,7 +51,6 @@ class FilterOrg extends Component {
         <div>
         <div class='item-card'>
             <h4>Regions</h4>
-            {/* Will need to change className back to class if I don't decide to do the button states. Alternatively just show a string of what was searched for. */}
             <Segment>
                     <button onClick={this.logRegionVal} className={(this.state.searchRegionValue == "region_id=4") ? "ui black button" : "ui button"} value="4">Lee</button>
                     <button onClick={this.logRegionVal} className={(this.state.searchRegionValue == "region_id=2") ? "ui black button" : "ui button"} value="2">Glades</button>
@@ -109,7 +104,7 @@ class FilterOrg extends Component {
 export default FilterOrg;
 
 const Org = (props) => (
-    <Item.Group class = "item-card">
+    <Item.Group className = "item-card">
         <Item>
             <Item.Content>
                 <Item.Header>{props.name}</Item.Header>

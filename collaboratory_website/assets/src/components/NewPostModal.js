@@ -24,10 +24,11 @@ class NewPostModal extends Component {
         if (create) {
             var button = (
                 <Button
+                    floated="right"
                     color="primary"
                     className="float-right"
                     onClick={this.toggle}
-                    style={{ minWidth: "150px", marginLeft: "61vw" }}
+                    style={{ minWidth: "150px", marginLeft: "55vw", marginBottom: "5vh"}}
                 >
                     Write a Post
                 </Button>

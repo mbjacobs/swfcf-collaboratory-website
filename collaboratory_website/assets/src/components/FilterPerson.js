@@ -1,16 +1,12 @@
 import React, {Component} from 'react';
 import {
-    Header,
     Segment,
-    Container,
-    Button,
-    Divider,
-    Card,
     Item,
-    Form,
     } from 'semantic-ui-react';
 import "../styles/Page.css";
 import "../styles/Directory.css";
+import { USERS_API_URL } from "../constants";
+
 
 class FilterPerson extends Component {
     state = {
@@ -27,12 +23,10 @@ class FilterPerson extends Component {
 
     logRegionVal = (e) => {
         this.setState({ searchRegionValue: e.target.value });
-        console.log(e.target.value);
     };
 
     logCauseVal = (e) => {
         this.setState({ searchCauseValue: e.target.value });
-        console.log(e.target.value);
     };
 
     handleSearch = () => {
@@ -82,8 +76,7 @@ class FilterPerson extends Component {
     };
 
     makeApiCall = () => {
-        var searchUrl = 'http://localhost:8000/users/';
-        fetch(searchUrl)
+        fetch(USERS_API_URL)
         .then(response => {
             return response.json();
         })
@@ -92,7 +85,7 @@ class FilterPerson extends Component {
             this.setState({ persons: data });
             ;
         });
-        };
+    };
 
 
     render () {
@@ -107,7 +100,6 @@ class FilterPerson extends Component {
                     <button onClick={this.logRegionVal} className={(this.state.searchRegionValue == "Collier") ? "ui black button" : "ui button"} value="Collier">Collier</button>
                     <button onClick={this.logRegionVal} className={(this.state.searchRegionValue == "Hendry") ? "ui black button" : "ui button"} value="Hendry">Hendry</button>
                     <button onClick={this.logRegionVal} className={(this.state.searchRegionValue == "Other") ? "ui black button" : "ui button"} value="Other">Other</button>
-                    {/* Not sure what to do here, just return all results? what does that do? If this is checking if something is in, check this using or, so basically if any of them exist there. maybe format these strings exactly? */}
                     <button onClick={this.logRegionVal} className={(this.state.searchRegionValue == "ALL") ? "ui black button" : "ui button"} value="ALL">All Regions</button>
                 </Segment>
             <h4>Causes</h4>
