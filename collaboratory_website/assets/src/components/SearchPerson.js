@@ -1,14 +1,10 @@
 import React, {Component} from 'react';
 import {
-    Header,
-    Segment,
-    Container,
-    Button,
-    Card,
     Item
     } from 'semantic-ui-react';
 import "../styles/Page.css";
 import "../styles/Directory.css";
+import { USERS_API_URL } from "../constants";
 
 
 class SearchPerson extends Component {
@@ -63,8 +59,7 @@ class SearchPerson extends Component {
     };
 
     makeApiCall = () => {
-        var searchUrl = 'http://localhost:8000/users/';
-        fetch(searchUrl)
+        fetch(USERS_API_URL)
         .then(response => {
             return response.json();
         })

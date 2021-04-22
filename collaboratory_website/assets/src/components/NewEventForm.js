@@ -16,8 +16,6 @@ class NewEventForm extends React.Component {
       description: "",
       user: this.props.user['first name'] + " " + this.props.user['last name']
     };
-
-    console.log(this.state);
   }
 
   onChange = e => {
@@ -26,7 +24,6 @@ class NewEventForm extends React.Component {
 
   createEvent = e => {
     e.preventDefault();
-    // console.log("in createEvent", this.csrfCookie)
       axios.post(EVENTS_API_URL, this.state).then(() => {
         this.props.resetState();
         this.props.toggle();
@@ -37,7 +34,7 @@ class NewEventForm extends React.Component {
     return (
         <Form onSubmit={this.createEvent}>
             <Form.Field>
-                <label>Event Name</label>
+                <label>Name</label>
                 <input 
                     type="text"
                     name="name"
@@ -46,7 +43,7 @@ class NewEventForm extends React.Component {
                 />
             </Form.Field>
             <Form.Field>
-                <label>Event Date</label>
+                <label>Date</label>
                 <input 
                     type="datetime-local"
                     name="date"
@@ -55,7 +52,7 @@ class NewEventForm extends React.Component {
                 />
             </Form.Field>
             <Form.Field>
-                <label>Event Location</label>
+                <label>Location</label>
                 <input 
                     type="text"
                     name="location"
@@ -64,7 +61,7 @@ class NewEventForm extends React.Component {
                 />
             </Form.Field>
             <Form.Field>
-                <label>Event RSVP</label>
+                <label>RSVP</label>
                 <input 
                     type="text"
                     name="RSVP"
@@ -73,7 +70,7 @@ class NewEventForm extends React.Component {
                 />
             </Form.Field>
             <Form.Field>
-                <label>Event Description</label>
+                <label>Description</label>
                 <input 
                     type="text"
                     name="description"

@@ -20,8 +20,9 @@ class NewEventModal extends Component {
         <Button
           color="primary"
           className="float-right"
+          floated="right"
           onClick={this.toggle}
-          style={{ minWidth: "150px", marginLeft: "61vw" }}
+          style={{ minWidth: "150px", marginLeft: "55vw", marginBottom: "5vh" }}
         >
           Post an Event
         </Button>

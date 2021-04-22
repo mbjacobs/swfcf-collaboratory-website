@@ -23,7 +23,6 @@ class NewPostForm extends React.Component {
     };
 
     createPost = e => {
-        console.log(this.state)
         e.preventDefault();
         axios.post(POSTS_API_URL, this.state).then(() => {
             this.props.resetState();
@@ -32,7 +31,6 @@ class NewPostForm extends React.Component {
     };
 
     render() {
-        console.log(this.state)
         return (
             <Form onSubmit={this.createPost}>
                 <h4>When making your new post, don't forget to select the discussion board.</h4>
