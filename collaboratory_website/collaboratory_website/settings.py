@@ -82,6 +82,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'collaboratory_website.wsgi.application'
 
+# Configure Django App for Heroku.
+import django_heroku
+django_heroku.settings(locals())
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
@@ -94,15 +97,8 @@ DATABASES = {
     'PASSWORD':'admin123',
     'HOST':'localhost',
     'PORT':'',
+    'CONN_MAX_AGE': 500
     }
-    # 'default': {
-    # 'ENGINE': 'django.db.backends.mysql',
-    # 'NAME': 'collaboratorydb',
-    # 'USER': 'root',
-    # 'PASSWORD': 'FIREbird*',
-    # 'HOST': 'localhost',
-    # 'PORT': '',
-    # }
 }
 
 # Password validation
@@ -156,15 +152,7 @@ LOGOUT_REDIRECT_URL = "landing"
 EMAIL_HOST = "localhost"
 EMAIL_PORT = 1025
 
-#CSRF
-# CORS_ALLOW_CREDENTIALS = True
-# CORS_ALLOW_HEADERS = (
-#     'xsrfheadername',
-#     'xsrfcookiename',
-#     'content-type',
-#     'X-CSRFTOKEN',
-# )
-
-# CORS_ORIGIN_WHITELIST = serverconfig.CORS_ORIGIN_WHITELIST
-# CSRF_TRUSTED_ORIGINS = serverconfig.CSRF_TRUSTED_ORIGINS
-# CSRF_COOKIE_NAME = "XSRF-TOKEN"
+#Deploy Database (MariaDB Jaws)
+import dj_database_url
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+DATABASES['default'] = dj_database_url.parse('mysql://ywurffr50roni0mc:cb6s5codrfwstftx@u3r5w4ayhxzdrw87.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/g7cki1yc6hqy54a7', conn_max_age=600)
