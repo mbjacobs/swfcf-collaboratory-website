@@ -1,0 +1,23 @@
+.ui.vertical.menu {
+    min-height: 100vh;
+    width: 20%;
+    margin-bottom: 0px;
+    border-radius: 0;
+}
+
+.ui.vertical.menu .item {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+#site-title {
+    transition: unset;
+}
+
+#user-profile {
+    text-align: center;
+}
+
+#user-profile p {
+    margin-top: 10%;
+}

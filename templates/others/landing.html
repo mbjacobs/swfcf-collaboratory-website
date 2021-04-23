@@ -1,0 +1,22 @@
+<!--templates/others/landing.html-->
+{% extends 'base.html' %}
+
+{% block content %}
+<body>
+    <div id="login-card" class="card">
+        <h3>You've successfully logged out!</h3>
+
+        <div>
+            {% if user.is_authenticated %}
+                <p class="form-bottom">
+                    <a href="{% url 'logout' %}">Logout</a>
+                </p>
+            {% else %}
+                <p class="form-bottom">
+                    <a href="{% url 'login' %}">Back to login</a>
+                </p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+{% endblock %}

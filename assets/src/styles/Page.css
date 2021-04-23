@@ -1,0 +1,45 @@
+#page {
+  display: flex;
+}
+
+#page .ui.segment {
+    border: unset;
+    box-shadow: unset;
+    padding-left: 5%;
+}
+
+h1 {
+  font-size: x-large;
+  padding-top: 3%;
+}
+
+h2 {
+  font-size: larger;
+}
+
+h3 {
+  font-size: large;
+}
+
+/*Begin Events Page*/
+
+#event-filters-container {
+  display: flex;
+  justify-content: center;
+}
+
+.card #details {
+  display:flex;
+  flex-direction: row;
+}
+
+#event-detail {
+  padding: 5%;
+}
+
+/* #event-filters-container .ui.button {
+  font-size: 24px;
+  margin: 5%;
+} */
+
+/*End Events Page*/
